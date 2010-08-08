@@ -1,4 +1,4 @@
-#TaskMan - utility to view running tasks.
+#summary TaskMan - utility to view running tasks.
 
 = Introduction =
 
