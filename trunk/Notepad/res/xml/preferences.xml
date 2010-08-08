@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+>
+	<CheckBoxPreference 
+		android:title="@string/pref_listItemSize"
+		android:summaryOff="@string/pref_listItemSizeSummaryOff" 
+		android:summaryOn="@string/pref_listItemSizeSummaryOn"
+		android:key="listItemSize"
+		android:defaultValue="true"
+	/>
+	<ListPreference
+		android:title="@string/pref_textSize"
+		android:summary="@string/pref_textSizeSummary"
+		android:key="textSize"
+		android:defaultValue="16"
+		android:entries="@array/textSizeEntries"
+		android:entryValues="@array/textSizeValues" /> 
+	/>
+</PreferenceScreen>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">FileMan</string>
+	<string name="app_description">BanderLabs</string>
+
+	<string name="dir_parent">..</string>
+
+	<string name="context_view">View</string>
+	<string name="context_send">Send</string>
+	<string name="context_move">Move</string>
+	<string name="context_copy">Copy</string>
+	<string name="context_delete">Delete</string>
+	<string name="context_properties">Properties</string>
+
+	<string name="menu_refresh">Refresh</string>
+	<string name="menu_root">Go to Root</string>
+	<string name="menu_paste">Paste</string>
+	<string name="menu_prefs">Preferences</string>
+    
+	<string name="dialog_move">Move</string>
+	<string name="dialog_copy">Copy</string>
+	<string name="dialog_delete">Delete</string>
+	<string name="dialog_properties">Properties</string>
+	<string name="dialog_yes">Yes</string>
+	<string name="dialog_no">No</string>
+	<string name="dialog_ok">Confirm</string>
+	<string name="dialog_cancel">Cancel</string>
+	<string name="file_explanation">Navigate to target directory and select Menu->Paste.</string>
+	<string name="failed_open_explanation">Could not open \'%1$s\'.</string>
+	<string name="failed_copy_explanation">Could not copy \'%1$s\'.</string>
+	<string name="copy_confirmation">Are you sure you want to copy \'%1$s\' to \'%2$s\'?</string>
+	<string name="move_confirmation">Are you sure you want to move \'%1$s\' to \'%2$s\'?</string>
+	<string name="delete_confirmation">Are you sure you want to delete \'%1$s\'?</string>
+	
+	<string name="props_type">Type</string>
+	<string name="props_type_directory">Directory</string>
+	<string name="props_filesize">Size</string>
+	<string name="props_filesize_value">%s bytes</string>
+	<string name="props_lastmodified">Last Modified</string>
+	<string name="props_readable">Can Read</string>
+	<string name="props_writable">Can Write</string>
+	<string name="props_hidden">Hidden</string>
+
+	<string name="menu_send">Send</string>
+
+
+	<string name="text_viewer">Text Viewer</string>
+	<string name="menu_revert">Revert</string>
+	
+	<string name="pref_fileManager">File Manager</string>
+	<string name="pref_detailedView">Use Detailed View</string>
+	<string name="pref_detailedViewSummaryOn">Using the detailed view</string>
+	<string name="pref_detailedViewSummaryOff">Using the simple view</string>
+	<string name="pref_sortOrder">Sort Order</string>
+	<string name="pref_sortOrderSummary">Sorting files by %s</string>
+	<string name="pref_hideDot">Hide Dot Files</string>
+	<string name="pref_hideDotSummaryOn">Hiding files starting with a dot</string>
+	<string name="pref_hideDotSummaryOff">Showing files starting with a dot</string>
+	<string name="pref_textViewer">Text Viewer</string>
+	<string name="pref_textSize">Text Size</string>
+	<string name="pref_textSizeSummary">Using text size %s</string>
+</resources>
