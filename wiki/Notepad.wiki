@@ -1,8 +1,8 @@
-#summary Notepad - Yet another version of Google's example app.
+#summary Notepad - yet another version of Google's tutorial app.
 
 = Introduction =
 
-The default tutorial application for Android is called [http://developer.android.com/resources/tutorials/notepad/index.html NotePad], and everybody and their dog has made a version of it. And obviously, so have I.
+The default tutorial application for Android is called [http://developer.android.com/resources/tutorials/notepad/index.html NotePad], and everybody and their dog has made a version of it. And naturally, so have I.
 
 This version has a preference to set text size, to search, and the ability to send the note.
 
