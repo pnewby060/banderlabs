@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+ 	<PreferenceCategory android:title="@string/pref_fileManager">	
+	 	<CheckBoxPreference android:key="detailedView"
+			android:title="@string/pref_detailedView" 
+			android:summaryOff="@string/pref_detailedViewSummaryOff" 
+			android:summaryOn="@string/pref_detailedViewSummaryOn"
+			android:defaultValue="false" 		
+		/>
+	 	<ListPreference android:key="sortOrder"
+			android:title="@string/pref_sortOrder"
+			android:summary="@string/pref_sortOrderSummary"
+			android:defaultValue="1"
+			android:entries="@array/sortOrderEntries"
+			android:entryValues="@array/sortOrderValues" /> 
+		/>
+		<CheckBoxPreference android:key="hideDot"
+			android:title="@string/pref_hideDot" 
+			android:summaryOff="@string/pref_hideDotSummaryOff" 
+			android:summaryOn="@string/pref_hideDotSummaryOn"
+			android:defaultValue="false" 		
+		/>
+	</PreferenceCategory>
+ 	<PreferenceCategory android:title="@string/pref_textViewer">
+		<ListPreference android:key="textSize"
+			android:title="@string/pref_textSize"
+			android:summary="@string/pref_textSizeSummary"
+			android:defaultValue="16"
+			android:entries="@array/textSizeEntries"
+			android:entryValues="@array/textSizeValues" /> 
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

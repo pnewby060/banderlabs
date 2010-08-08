@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Notepad</string>
+	<string name="app_description">BanderLabs</string>
+	<string name="no_notes">No Notes found.\nPress \'Menu\' to Add a Note.</string>
+	
+	<string name="menu_insert">Add Note</string>
+	<string name="menu_search">Search</string>
+	<string name="menu_prefs">Preferences</string>
+	
+	<string name="menu_edit">Edit Note</string>
+	<string name="menu_edit_title">Edit Title</string>
+	<string name="menu_delete">Delete Note</string>
+	
+	<string name="menu_revert">Revert</string>
+	<string name="menu_discard">Discard</string>
+	<string name="menu_send">Send Note</string>
+	
+	<string name="confirm">Confirm</string>
+	<string name="cancel">Cancel</string>
+	
+	<string name="search_hint">Search notes</string>
+	<string name="search_noresults">Could not find any notes containing \'%1$s\'.</string>
+
+	<plurals name="search_results">
+		<item quantity="one">%d result for \'%s\' </item>
+		<item quantity="other">%d results for \'%s\' </item>
+	</plurals>
+	
+	<string name="pref_listItemSize">Large List Items</string>
+	<string name="pref_listItemSizeSummaryOn">Showing large list items</string>
+	<string name="pref_listItemSizeSummaryOff">Showing small list items</string>
+	<string name="pref_textSize">Text Size</string>
+	<string name="pref_textSizeSummary">Using text size %s</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    
+    <string name="app_name">TaskMan</string>
+    <string name="app_description">BanderLabs</string>
+    
+    <string name="app_help">Tap to stop application, hold for details.</string>
+    
+    <string name="state_running">Running</string>
+    <string name="state_stopped">Stopped</string>
+    
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_showall">Show All</string>
+    
+    <string name="menu_kill">Force Stop</string>
+    <string name="menu_hide">Hide</string>
+    <string name="menu_details">Details</string>
+        
+    <string name="detail_controls">Controls</string>
+    <string name="detail_uninstall">Uninstall</string>
+    <string name="detail_kill">Force Stop</string>
+    
+    <string name="detail_permissions">Permissions</string>
+    <string name="detail_perms_show">Show more</string>
+    <string name="detail_perms_hide">Hide</string>
+</resources>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+>
+	<LinearLayout	
+		android:layout_width="fill_parent"
+	  	android:layout_height="wrap_content"
+	  	android:orientation="vertical"
+	>
+		<RelativeLayout
+			android:layout_width="fill_parent" 
+			android:layout_height="?android:attr/listPreferredItemHeight"
+		>	
+			<ImageView android:id="@+id/icon"
+				android:layout_width="48dip" 
+				android:layout_height="48dip" 
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="3dip" 
+			/>
+			<TextView android:id="@+id/title" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content" 			
+				android:layout_toRightOf="@id/icon"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_marginLeft="6dip" 
+				android:layout_marginTop="6dip" 			
+				android:ellipsize="end"
+			/>
+			<TextView android:id="@+id/version" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_below="@id/title"
+				android:layout_alignLeft="@id/title"  
+				android:textAppearance="?android:attr/textAppearanceSmall"
+			/>
+		</RelativeLayout>
+		
+		<TextView android:id="@+id/description" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="6dip" 
+			android:layout_marginBottom="6dip" 	 			
+			android:textAppearance="?android:attr/textAppearanceSmall"
+		/>
+			
+		<TextView
+			android:text="@string/detail_controls"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="3dip" 
+			android:textStyle="bold"
+			android:textColor="#B8B8B8"
+			android:textColorHighlight="#B8B8B8"
+			android:background="#404040"
+		/>
+		<LinearLayout
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:orientation="horizontal"
+			android:layout_weight="0"
+		>
+			<Button android:id="@+id/uninstall"
+				android:text="@string/detail_uninstall"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			/>
+			<Button android:id="@+id/kill"
+				android:text="@string/detail_kill"
+				android:layout_weight="1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			/>
+		</LinearLayout>
+		
+		<TextView android:id="@+id/permission_header"
+			android:text="@string/detail_permissions"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="3dip" 
+			android:textStyle="bold"
+			android:textColor="#B8B8B8"
+			android:textColorHighlight="#B8B8B8"
+			android:background="#404040"
+		/>
+		<LinearLayout android:id="@+id/dangerous_list" 
+	        android:paddingLeft="16dip"
+	        android:paddingRight="12dip"	
+			android:orientation="vertical"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+		/>
+
+		<LinearLayout android:id="@+id/show_more"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="12dip"
+	        android:paddingBottom="16dip"
+	        android:orientation="vertical"
+		>
+	        <View
+	            android:layout_width="fill_parent"
+	            android:layout_height="1dip"
+	            android:background="@android:drawable/divider_horizontal_dark" 
+			/>
+	        <LinearLayout
+	            android:orientation="horizontal"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="16dip"
+	            android:layout_marginBottom="12dip"
+	            android:layout_marginLeft="16dip"
+	            android:duplicateParentState="true"
+			>
+	            <ImageView android:id="@+id/show_more_icon"
+	                android:src="@drawable/expander_ic_minimized"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+				/>
+	            <TextView android:id="@+id/show_more_text"
+	                android:text="@string/detail_perms_show"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_alignTop="@id/show_more_icon"
+	                android:layout_gravity="center_vertical"
+	                android:paddingLeft="6dip"
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:duplicateParentState="true"
+				/>
+	        </LinearLayout>
+	        <View
+	            android:layout_width="fill_parent"
+	            android:layout_height="1dip"
+	            android:background="@android:drawable/divider_horizontal_dark"
+			/>
+    	</LinearLayout>
+    	<LinearLayout android:id="@+id/normal_list" 
+	        android:paddingLeft="16dip"
+	        android:paddingRight="12dip"	
+			android:orientation="vertical"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:visibility="gone"
+		/>
+
+	</LinearLayout>
+</ScrollView>
