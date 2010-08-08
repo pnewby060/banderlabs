@@ -1,0 +1,11 @@
+#summary FileMan - simple filemanager for your SD card.
+
+= Introduction =
+
+FileMan is a simple file manager for your SD card. It allows you to browse the file system; view the properties of a single file; and copy, move, delete and rename files.
+
+= Screenshots =
+
+http://lh3.ggpht.com/_cwLQAvN2y84/TF7-528RQHI/AAAAAAAAABY/aC9u-ENH9xo/FileMan01.png
+http://lh4.ggpht.com/_cwLQAvN2y84/TF7-5336zXI/AAAAAAAAABc/n8PyQFoGmlg/FileMan02.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TF7-6FMUIBI/AAAAAAAAABg/-7Wz-PxCVOA/FileMan03.png
