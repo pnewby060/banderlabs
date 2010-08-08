@@ -1,0 +1,12 @@
+#TaskMan - utility to view running tasks.
+
+= Introduction =
+
+TaskMan is a simple utility that allows you to view the tasks running on your Android device, and view what permissions a running task has. Optionally, you can force stop a task. To make sure you don't accidentily force stop important tasks, you can hide those from view.
+
+*NOTE* Android is not Windows Mobile. With modern versions of Android it should never be neccessary to forcefully terminate a task. Doing so can mean loss of data and might shorten your battery life. Unless a task is misbehaving badly, please let Android manage which tasks are running.
+
+= Screenshots =
+
+http://lh3.ggpht.com/_cwLQAvN2y84/TF8CNfrO6uI/AAAAAAAAAB4/ywkCHzQ1nTs/TaskMan01.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TF8CNoXpvRI/AAAAAAAAAB8/r2WuOG08oW0/TaskMan02.png
