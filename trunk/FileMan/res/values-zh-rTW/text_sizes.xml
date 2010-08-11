@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="textSizeEntries">
+		<item>超小</item>
+		<item>小</item>
+		<item>正常</item>
+		<item>大</item>
+		<item>特大</item>
+	</string-array>
+	<string-array name="textSizeValues">
+		<item>10</item>
+		<item>12</item>
+		<item>16</item>
+		<item>18</item>
+		<item>20</item>
+	</string-array>	
+</resources>

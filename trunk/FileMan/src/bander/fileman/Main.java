@@ -216,7 +216,7 @@ public class Main extends ListActivity {
 		menu.setHeaderTitle(selectedFileName);
 
 		//menu.add(0, VIEW_ID, 0, R.string.context_view);
-		//menu.add(0, SEND_ID, 0, R.string.context_send);
+		menu.add(0, SEND_ID, 0, R.string.context_send);
 		menu.add(0, MOVE_ID, 0, R.string.context_move);
 		menu.add(0, COPY_ID, 0, R.string.context_copy);
 		menu.add(0, DELETE_ID, 0, R.string.context_delete);
