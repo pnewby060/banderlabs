@@ -44,7 +44,7 @@ public class TextViewer extends Activity {
 			return;
 		}
 
-		setContentView(R.layout.viewer);
+		setContentView(R.layout.textviewer);
         
 		mText = (EditText) findViewById(R.id.text);
         

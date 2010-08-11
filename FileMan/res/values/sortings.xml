@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string-array name="sortings">
-		<item>None</item>
-		<item>By Name</item>
-		<item>By Size</item>
-	</string-array>
-</resources>

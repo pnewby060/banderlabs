@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="sortOrderEntries">
+		<item>無</item>
+		<item>檔案名</item>
+		<item>檔案大小</item>
+	</string-array>
+	<string-array name="sortOrderValues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>	
+</resources>

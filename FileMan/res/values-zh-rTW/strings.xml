@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">FileMan</string>
+	<string name="app_description">BanderLabs</string>
+
+	<string name="dir_parent">..</string>
+
+	<string name="context_view">檢視</string>
+	<string name="context_send">傳送</string>
+	<string name="context_move">移動</string>
+	<string name="context_copy">複製</string>
+	<string name="context_delete">刪除</string>
+	<string name="context_properties">屬性</string>
+
+	<string name="menu_refresh">更新</string>
+	<string name="menu_root">轉到根目錄</string>
+	<string name="menu_paste">貼上</string>
+	<string name="menu_prefs">首選項</string>
+    
+	<string name="dialog_move">移動</string>
+	<string name="move_confirmation">你確定要將 \'%1$s\' 移動到 \'%2$s\'？</string>
+	<string name="dialog_copy">複製</string>
+	<string name="copy_confirmation">你確定要將 \'%1$s\' 複製到 \'%2$s\'？</string>
+	<string name="dialog_delete">刪除</string>
+	<string name="delete_confirmation">你確定要刪除 \'%1$s\'？</string>
+	<string name="dialog_yes">是</string>
+	<string name="dialog_no">否</string>
+	<string name="dialog_ok">確認</string>
+	<string name="dialog_cancel">取消</string>
+	<string name="file_explanation">轉到目標資料夾，然後在按 Menu 鍵後選取貼上。</string>
+	<string name="failed_open_explanation">無法開啟 \'%1$s\'.</string>
+	<string name="failed_copy_explanation">無法複製 \'%1$s\'.</string>
+		
+	<string name="props_type">類型</string>
+	<string name="props_type_directory">資料夾</string>
+	<string name="props_filesize">檔案大小</string>
+	<string name="props_filesize_value">%s 位元組</string>
+	<string name="props_lastmodified">最後修改</string>
+	<string name="props_readable">可讀</string>
+	<string name="props_writable">可寫入</string>
+	<string name="props_hidden">隱藏</string>
+
+	<string name="menu_send">傳送</string>
+
+	<string name="text_viewer">文字檢視器</string>
+	<string name="menu_revert">還原</string>
+	
+	<string name="pref_fileManager">檔案管理器</string>
+	<string name="pref_detailedView">使用詳情檢視</string>
+	<string name="pref_detailedViewSummaryOn">檢視檔案的詳情</string>
+	<string name="pref_detailedViewSummaryOff">使用簡單檢視</string>
+	<string name="pref_sortOrder">排序方式</string>
+	<string name="pref_sortOrderSummary">按 %s 進行檔案排序</string>
+	<string name="pref_hideDot">隱藏.開頭檔案</string>
+	<string name="pref_hideDotSummaryOn">隱藏那些以一個.作為開頭的檔案</string>
+	<string name="pref_hideDotSummaryOff">顯示那些以一個.作為開頭的檔案</string>
+	<string name="pref_textViewer">文字檢視器</string>
+	<string name="pref_textSize">文字大小</string>
+	<string name="pref_textSizeSummary">文字字體的大小是 %s 的</string>
+</resources>

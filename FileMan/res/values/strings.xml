@@ -18,9 +18,11 @@
 	<string name="menu_prefs">Preferences</string>
     
 	<string name="dialog_move">Move</string>
+	<string name="move_confirmation">Are you sure you want to move \'%1$s\' to \'%2$s\'?</string>
 	<string name="dialog_copy">Copy</string>
+	<string name="copy_confirmation">Are you sure you want to copy \'%1$s\' to \'%2$s\'?</string>
 	<string name="dialog_delete">Delete</string>
-	<string name="dialog_properties">Properties</string>
+	<string name="delete_confirmation">Are you sure you want to delete \'%1$s\'?</string>
 	<string name="dialog_yes">Yes</string>
 	<string name="dialog_no">No</string>
 	<string name="dialog_ok">Confirm</string>
@@ -28,10 +30,7 @@
 	<string name="file_explanation">Navigate to target directory and select Menu->Paste.</string>
 	<string name="failed_open_explanation">Could not open \'%1$s\'.</string>
 	<string name="failed_copy_explanation">Could not copy \'%1$s\'.</string>
-	<string name="copy_confirmation">Are you sure you want to copy \'%1$s\' to \'%2$s\'?</string>
-	<string name="move_confirmation">Are you sure you want to move \'%1$s\' to \'%2$s\'?</string>
-	<string name="delete_confirmation">Are you sure you want to delete \'%1$s\'?</string>
-	
+		
 	<string name="props_type">Type</string>
 	<string name="props_type_directory">Directory</string>
 	<string name="props_filesize">Size</string>
@@ -42,7 +41,6 @@
 	<string name="props_hidden">Hidden</string>
 
 	<string name="menu_send">Send</string>
-
 
 	<string name="text_viewer">Text Viewer</string>
 	<string name="menu_revert">Revert</string>
