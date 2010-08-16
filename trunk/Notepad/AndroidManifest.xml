@@ -53,7 +53,9 @@
             </intent-filter>
 		</activity>
 		
-		<activity android:name=".NoteEdit">
+		<activity android:name=".NoteEdit"
+			android:windowSoftInputMode="stateHidden|adjustResize"
+		>
 			<intent-filter android:label="@string/menu_edit">
 				<action android:name="android.intent.action.VIEW" />
 				<action android:name="android.intent.action.EDIT" />

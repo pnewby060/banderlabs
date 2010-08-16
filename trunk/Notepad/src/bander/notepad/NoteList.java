@@ -29,7 +29,7 @@ public class NoteList extends ListActivity {
 	
 	public static final int DELETE_ID				= Menu.FIRST + 3;
 	public static final int SEND_ID					= Menu.FIRST + 4;
-
+	
 	private static final String[] PROJECTION = new String[] {
 		Note._ID,
 		Note.TITLE,
@@ -37,7 +37,7 @@ public class NoteList extends ListActivity {
     
 	private static final int COLUMN_INDEX_ID 		= 0;
 	private static final int COLUMN_INDEX_TITLE		= 1;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class NoteList extends ListActivity {
 		if (intent.getData() == null) {
 			intent.setData(Note.CONTENT_URI);
 		}
-
+		
 		registerForContextMenu(getListView());
 	}
 	
@@ -67,11 +67,11 @@ public class NoteList extends ListActivity {
 		);
 		setListAdapter(adapter);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-
+		
 		menu.add(0, INSERT_ID, 0, R.string.menu_insert)
 			.setIcon(android.R.drawable.ic_menu_add);
 		
@@ -88,7 +88,7 @@ public class NoteList extends ListActivity {
 */		
 		return true;
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -105,7 +105,7 @@ public class NoteList extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info;
@@ -168,7 +168,7 @@ public class NoteList extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
-
+		
 		String action = getIntent().getAction();
 		if (Intent.ACTION_PICK.equals(action) || Intent.ACTION_GET_CONTENT.equals(action)) {
 			setResult(RESULT_OK, new Intent().setData(uri));
