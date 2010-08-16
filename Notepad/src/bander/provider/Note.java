@@ -38,13 +38,14 @@ public class Note implements BaseColumns, Parcelable {
     private String		mTitle;
     private String		mBody;
 	
-	public int 		getId()			{ return mId; }
 	public String	getTitle()		{ return mTitle; }
 	public String	getBody()		{ return mBody; }
     
 	/** Creates a new instance of the <code>Note</code> class. */
 	public Note() {
 		mId = -1;
+		mTitle = "";
+		mBody = "";
 	}
     
 	/** Copy constructor */
