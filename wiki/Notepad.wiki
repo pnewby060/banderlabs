@@ -2,13 +2,20 @@
 
 = Introduction =
 
-The default tutorial application for Android is called [http://developer.android.com/resources/tutorials/notepad/index.html NotePad], and everybody and their dog has made a version of it. And naturally, so have I.
+Notepad is a simple, easy-to-use note-taking app which is based on Google's tutorial  [http://developer.android.com/resources/tutorials/notepad/index.html NotePad] app.
 
-This version has a preference to set text size, to search, and the ability to send the note.
+This version has a preference to set text size, to search, the ability to send the note and optional delete confirmation.
+
+The notes have a context menu accessed by long-pressing the note title in the list view, and most screens have an options menu accessed by pressing the 'Menu' button on your Android device.
+
+||v1.01||Added delete confirmation dialog.||
+|| ||Added preference to show delete confirmation.||
+|| ||Added options menu to Title Edit, various other UI tweaks.||
+||v1.0||Initial release.||
 
 = Screenshots =
 
 http://lh5.ggpht.com/_cwLQAvN2y84/TF8FfCsJuGI/AAAAAAAAACM/t6PHaFQ2Y5s/notepad01.png
-http://lh4.ggpht.com/_cwLQAvN2y84/TF8FfXd3hrI/AAAAAAAAACQ/PgTUexnmKI4/notepad02.png
+http://lh5.ggpht.com/_cwLQAvN2y84/TGm_AxhckOI/AAAAAAAAADY/RC1hjeuO3y8/Notepadv02.png
 http://lh6.ggpht.com/_cwLQAvN2y84/TF8FfZndBxI/AAAAAAAAACU/7IjpZ4UGO30/notepad03.png
 http://lh3.ggpht.com/_cwLQAvN2y84/TF8FfqR1tUI/AAAAAAAAACY/PEe8qhZ3fsY/notepad04.png
