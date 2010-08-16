@@ -16,12 +16,15 @@
 	<string name="menu_discard">Discard</string>
 	<string name="menu_send">Send Note</string>
 	
-	<string name="confirm">Confirm</string>
-	<string name="cancel">Cancel</string>
+	<string name="dialog_delete">Delete Note</string>
+	<string name="delete_confirmation">Are you sure you want to delete this note?</string>
+	
+	<string name="dialog_confirm">Confirm</string>
+	<string name="dialog_cancel">Cancel</string>
 	
 	<string name="search_hint">Search notes</string>
 	<string name="search_noresults">Could not find any notes containing \'%1$s\'.</string>
-
+	
 	<plurals name="search_results">
 		<item quantity="one">%d result for \'%s\' </item>
 		<item quantity="other">%d results for \'%s\' </item>
@@ -32,4 +35,7 @@
 	<string name="pref_listItemSizeSummaryOff">Showing small list items</string>
 	<string name="pref_textSize">Text Size</string>
 	<string name="pref_textSizeSummary">Using text size %s</string>
+	<string name="pref_deleteConfirmation">Confirm Deletes</string>
+	<string name="pref_deleteConfirmationSummaryOn">Confirm when deleting a note</string>
+	<string name="pref_deleteConfirmationSummaryOff">Do not confirm when deleting a note</string>
 </resources>

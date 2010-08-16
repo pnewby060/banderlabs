@@ -16,4 +16,11 @@
 		android:entries="@array/textSizeEntries"
 		android:entryValues="@array/textSizeValues" /> 
 	/>
+	<CheckBoxPreference 
+		android:title="@string/pref_deleteConfirmation"
+		android:summaryOff="@string/pref_deleteConfirmationSummaryOff" 
+		android:summaryOn="@string/pref_deleteConfirmationSummaryOn"
+		android:key="deleteConfirmation"
+		android:defaultValue="true"
+	/>
 </PreferenceScreen>
