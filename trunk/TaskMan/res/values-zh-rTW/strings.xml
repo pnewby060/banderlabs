@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>    
+    <string name="app_name">TaskMan</string>
+    <string name="app_description">BanderLabs</string>
+    
+    <string name="app_help">點擊停止程式，長按檢視詳情。</string>
+    
+    <string name="state_running">執行中</string>
+    <string name="state_stopped">已停止</string>
+    
+    <string name="menu_refresh">更新</string>
+    <string name="menu_showall">顯示所有</string>
+    
+    <string name="menu_kill">強制停止</string>
+    <string name="menu_hide">隱藏</string>
+    <string name="menu_details">詳情</string>
+        
+    <string name="detail_controls">控制</string>
+    <string name="detail_uninstall">移除</string>
+    <string name="detail_kill">強制停止</string>
+    
+    <string name="detail_permissions">權限</string>
+    <string name="detail_perms_show">顯示更多</string>
+    <string name="detail_perms_hide">隱藏</string>
+</resources>
