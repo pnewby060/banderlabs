@@ -15,11 +15,13 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-	
+		
 		<activity android:name=".Properties"></activity>
 		<activity android:name=".Preferences"></activity>
 		
-		<activity android:name=".TextViewer" android:label="@string/text_viewer">
+		<activity android:name=".TextViewer" android:label="@string/text_viewer"
+			android:windowSoftInputMode="stateHidden|adjustResize"
+		>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<action android:name="android.intent.action.EDIT" />
