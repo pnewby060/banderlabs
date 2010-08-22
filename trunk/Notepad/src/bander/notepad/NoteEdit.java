@@ -20,34 +20,32 @@ import bander.provider.Note;
 
 /** Secondary activity for Notepad, shows details of a single note and allows editing it. */
 public class NoteEdit extends Activity {
-	private static final int	REVERT_ID			= Menu.FIRST + 0;
-	private static final int	DELETE_ID			= Menu.FIRST + 1;
-	private static final int	SEND_ID 			= Menu.FIRST + 2;
-	private static final int	PREFS_ID 			= Menu.FIRST + 3;
-	
-	private static final int	STATE_EDIT			= 0;
-	private static final int	STATE_INSERT		= 1;
-	
-	private static final String[] PROJECTION = new String[] {
-		Note._ID,
-		Note.TITLE,
-		Note.BODY,
+	private static final int REVERT_ID 		= Menu.FIRST + 0;
+	private static final int DELETE_ID 		= Menu.FIRST + 1;
+	private static final int SEND_ID 		= Menu.FIRST + 2;
+	private static final int PREFS_ID 		= Menu.FIRST + 3;
+
+	private static final int STATE_EDIT 	= 0;
+	private static final int STATE_INSERT 	= 1;
+
+	private static final String[] PROJECTION = new String[] { 
+		Note._ID, Note.TITLE, Note.BODY
 	};
-	
-	private static final String ORIGINAL_NOTE 		= "originalNote";
-	
-	private int			mState;
-	private Uri			mUri;
-	
-	private EditText	mBodyText;
-	private Note		mOriginalNote;
-	
+
+	private static final String ORIGINAL_NOTE = "originalNote";
+
+	private int mState;
+	private Uri mUri;
+
+	private EditText mBodyText;
+	private Note mOriginalNote;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		final Intent intent = getIntent();
-		
+
 		final String action = intent.getAction();
 		if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) {
 			mState = STATE_EDIT;
@@ -55,24 +53,24 @@ public class NoteEdit extends Activity {
 		} else if (Intent.ACTION_INSERT.equals(action)) {
 			mState = STATE_INSERT;
 			mUri = getContentResolver().insert(intent.getData(), null);
-			
+
 			setResult(RESULT_OK, (new Intent()).setAction(mUri.toString()));
 		}
-		
+
 		if (mUri == null) {
 			finish();
 			return;
 		}
-		
+
 		setContentView(R.layout.edit);
-		
+
 		if (savedInstanceState != null) {
 			final Object note = savedInstanceState.get(ORIGINAL_NOTE);
 			if (note != null) mOriginalNote = (Note) note;
-		} 
-				
+		}
+
 		mBodyText = (EditText) findViewById(R.id.body);
-		
+
 		Button confirmButton = (Button) findViewById(R.id.confirm);
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -81,52 +79,53 @@ public class NoteEdit extends Activity {
 		});
 		Button cancelButton = (Button) findViewById(R.id.cancel);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View view) {
-		    	cancelNote();
-		    }		           
+			public void onClick(View view) {
+				cancelNote();
+			}
 		});
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putParcelable(ORIGINAL_NOTE, mOriginalNote);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-        
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);		
-	    
-		float textSize = Float.valueOf(preferences.getString("textSize", "16"));	    
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		float textSize = Float.valueOf(preferences.getString("textSize", "16"));
 		mBodyText.setTextSize(textSize);
-		
+
 		Cursor cursor = managedQuery(mUri, PROJECTION, null, null, null);
 		Note note = Note.fromCursor(cursor);
 		cursor.close();
-		
+
 		if (note != null) {
 			if (mOriginalNote == null) mOriginalNote = note;
-			mBodyText.setTextKeepState(note.getBody());				
+			mBodyText.setTextKeepState(note.getBody());
 		}
 	}
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
-        
+
 		if (mUri != null) {
 			String bodyText = mBodyText.getText().toString();
 			int length = bodyText.length();
-			
+
 			if ((mState == STATE_INSERT) && isFinishing() && (length == 0)) {
 				// If inserting and finishing and no text then delete the note.
 				setResult(RESULT_CANCELED);
 				deleteNote();
 			} else {
 				ContentValues values = mOriginalNote.getContentValues();
-				
+				if (values.containsKey(Note._ID)) values.remove(Note._ID);
+
 				if (mState == STATE_INSERT) {
 					String[] lines = bodyText.split("[\n\\.]");
 					String title = 
@@ -140,12 +139,12 @@ public class NoteEdit extends Activity {
 					values.put(Note.TITLE, title);
 				}
 				values.put(Note.BODY, bodyText);
-				
+
 				getContentResolver().update(mUri, values, null, null);
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
@@ -197,14 +196,14 @@ public class NoteEdit extends Activity {
 				getContentResolver().update(mUri, values, null, null);
 				mUri = null;
 			} else if (mState == STATE_INSERT) {
-                // Empty note was inserted on startup, clean up.
+				// Empty note was inserted on startup, clean up.
 				deleteNote();
 			}
 		}
 		setResult(RESULT_CANCELED);
 		finish();
 	}
-	
+
 	/** Deletes the current note. */
 	private final void deleteNote() {
 		if (mUri != null) {
@@ -212,7 +211,7 @@ public class NoteEdit extends Activity {
 			mUri = null;
 		}
 	}
-	
+
 	/** Delete a note, confirm when preferred.
 	 * @param context Context to use.
 	 * @param id ID of the note to delete.
@@ -220,21 +219,20 @@ public class NoteEdit extends Activity {
 	private void deleteNote(Context context, Uri uri) {
 		final Uri noteUri = uri;
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-		Boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);	    
+		Boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);
 		if (deleteConfirmation) {
 			AlertDialog alertDialog = new AlertDialog.Builder(context)
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setTitle(R.string.dialog_delete)
 				.setMessage(R.string.delete_confirmation)
 				.setPositiveButton(R.string.dialog_confirm,
-					new DialogInterface.OnClickListener() {					
+					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							getContentResolver().delete(noteUri, null, null);
 							finish();
 						}
-					}
-				)
+					})
 				.setNegativeButton(R.string.dialog_cancel, null)
 				.create();
 			alertDialog.show();
@@ -243,5 +241,5 @@ public class NoteEdit extends Activity {
 			finish();
 		}
 	}
-	
+
 }
