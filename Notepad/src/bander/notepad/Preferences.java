@@ -7,14 +7,14 @@ import android.preference.PreferenceActivity;
 
 /** Preferences activity for Notepad. */
 public class Preferences extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
-	private static final String		KEY_TEXTSIZE		= "textSize";
-	
+	private static final String KEY_TEXTSIZE = "textSize";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		addPreferencesFromResource(R.xml.preferences);
-		
+
 		ListPreference textSizePreference = (ListPreference) findPreference(KEY_TEXTSIZE);
 		textSizePreference.setOnPreferenceChangeListener(this);
 		setTextSizeSummary(textSizePreference);
@@ -34,7 +34,7 @@ public class Preferences extends PreferenceActivity implements Preference.OnPref
 	}
 
 	private void setTextSizeSummary(ListPreference preference) {
-		preference.setSummary(getString(R.string.pref_textSizeSummary, preference.getEntry()));	
+		preference.setSummary(getString(R.string.pref_textSizeSummary, preference.getEntry()));
 	}
 
 }

@@ -19,17 +19,14 @@ import android.text.TextUtils;
 
 /** <code>ContentProvider</code> implementation for <code>bander.provider.Note</code> objects. */
 public class NoteProvider extends ContentProvider {
-	private static final String		DATABASE_NAME			= "notepad.db";
-	private static final String		DATABASE_TABLE			= "notes";
-	private static final int		DATABASE_VERSION		= 5;
+	private static final String DATABASE_NAME = "notepad.db";
+	private static final String DATABASE_TABLE = "notes";
+	private static final int DATABASE_VERSION = 5;
 
-	private static final int 		SEARCH 					= 1;
-	private static final int		NOTES					= 2;
-	private static final int		NOTE_ID					= 3;
+	private static final int SEARCH 	= 1;
+	private static final int NOTES 		= 2;
+	private static final int NOTE_ID 	= 3;
 
-	private static HashMap<String, String> sNotesProjectionMap;
-	private static HashMap<String, String> sSuggestionProjectionMap;
-	
 	private static final UriMatcher sUriMatcher;
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -37,23 +34,28 @@ public class NoteProvider extends ContentProvider {
 		sUriMatcher.addURI(Note.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
 		sUriMatcher.addURI(Note.AUTHORITY, "notes", NOTES);
 		sUriMatcher.addURI(Note.AUTHORITY, "notes/#", NOTE_ID);
-
+	}
+	
+	private static HashMap<String, String> sNotesProjectionMap;
+	static {
 		sNotesProjectionMap = new HashMap<String, String>();
 		sNotesProjectionMap.put(Note._ID, Note._ID);
 		sNotesProjectionMap.put(Note.TITLE, Note.TITLE);
 		sNotesProjectionMap.put(Note.BODY, Note.BODY);
 		sNotesProjectionMap.put(Note.CREATED, Note.CREATED);
-		
+	}
+	private static HashMap<String, String> sSuggestionProjectionMap;
+	static {
 		sSuggestionProjectionMap = new HashMap<String, String>();
 		sSuggestionProjectionMap.put(SearchManager.SUGGEST_COLUMN_TEXT_1,
 			Note.TITLE + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
 		sSuggestionProjectionMap.put(SearchManager.SUGGEST_COLUMN_TEXT_2,
 			Note.BODY + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2);
-		sSuggestionProjectionMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID,
+		sSuggestionProjectionMap.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID, 
 			Note._ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
 		sSuggestionProjectionMap.put(Note._ID, Note._ID);
-    }
-	
+	}
+
 	/** Helper class to open, create, and upgrade the database file. */
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -63,15 +65,15 @@ public class NoteProvider extends ContentProvider {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + DATABASE_TABLE + " ("
-				+ Note._ID + " INTEGER PRIMARY KEY,"
+			db.execSQL("CREATE TABLE " + DATABASE_TABLE + " (" 
+				+ Note._ID + " INTEGER PRIMARY KEY," 
 				+ Note.TITLE + " TEXT,"
-				+ Note.BODY + " TEXT,"
-				+ Note.CREATED + " INTEGER"
+				+ Note.BODY + " TEXT," 
+				+ Note.CREATED + " INTEGER" 
 				+ ");"
 			);
 		}
-		
+
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
@@ -91,7 +93,7 @@ public class NoteProvider extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(DATABASE_TABLE);
-		
+
 		switch (sUriMatcher.match(uri)) {
 			case SEARCH:
 				qb.setProjectionMap(sSuggestionProjectionMap);
@@ -108,12 +110,12 @@ public class NoteProvider extends ContentProvider {
 			case NOTES:
 				qb.setProjectionMap(sNotesProjectionMap);
 				break;
-	
+
 			case NOTE_ID:
 				qb.setProjectionMap(sNotesProjectionMap);
 				qb.appendWhere(Note._ID + "=" + uri.getPathSegments().get(1));
 				break;
-	
+
 			default:
 				throw new IllegalArgumentException("Unsupported URI " + uri);
 		}
@@ -153,36 +155,36 @@ public class NoteProvider extends ContentProvider {
 		if (sUriMatcher.match(uri) != NOTES) {
 			throw new IllegalArgumentException("Unsupported URI " + uri);
 		}
-		
+
 		ContentValues values;
 		if (initialValues != null) {
 			values = new ContentValues(initialValues);
 		} else {
 			values = new ContentValues();
 		}
-		
+
 		if (values.containsKey(Note.TITLE) == false) {
 			Resources r = Resources.getSystem();
 			values.put(Note.TITLE, r.getString(android.R.string.untitled));
 		}
-		
+
 		if (values.containsKey(Note.BODY) == false) {
 			values.put(Note.BODY, "");
 		}
-		
+
 		if (values.containsKey(Note.CREATED) == false) {
 			Long now = Long.valueOf(System.currentTimeMillis());
 			values.put(Note.CREATED, now);
 		}
-		
-		SQLiteDatabase db = mOpenHelper.getWritableDatabase();		
+
+		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, Note.BODY, values);
 		if (rowId > 0) {
 			Uri noteUri = ContentUris.withAppendedId(Note.CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}
-		
+
 		throw new SQLException("Failed to insert row into " + uri);
 	}
 
@@ -194,7 +196,8 @@ public class NoteProvider extends ContentProvider {
 			case NOTE_ID:
 				String noteId = uri.getPathSegments().get(1);
 				count = db.delete(DATABASE_TABLE, Note._ID + "=" + noteId
-					+ (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), whereArgs);
+					+ (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), whereArgs
+				);
 				break;
 
 			default:
@@ -208,21 +211,19 @@ public class NoteProvider extends ContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-		
+
 		int count;
 		switch (sUriMatcher.match(uri)) {
 			case NOTE_ID:
 				String noteId = uri.getPathSegments().get(1);
-				count = db.update(DATABASE_TABLE, values, 
-					Note._ID + "=" + noteId + (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), 
-					whereArgs
-				);
+				count = db.update(DATABASE_TABLE, values, Note._ID + "=" + noteId
+					+ (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), whereArgs);
 				break;
-			
+
 			default:
 				throw new IllegalArgumentException("Unsupported URI " + uri);
 		}
-		
+
 		getContext().getContentResolver().notifyChange(uri, null);
 		return count;
 	}

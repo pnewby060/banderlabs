@@ -23,72 +23,70 @@ import bander.provider.Note;
 
 /** Main activity for Notepad, shows a list of notes. */
 public class NoteList extends ListActivity {
-	public static final int INSERT_ID				= Menu.FIRST + 0;
-	public static final int SEARCH_ID				= Menu.FIRST + 1;
-	public static final int PREFS_ID				= Menu.FIRST + 2;
-	
-	public static final int DELETE_ID				= Menu.FIRST + 3;
-	public static final int SEND_ID					= Menu.FIRST + 4;
-	
-	private static final String[] PROJECTION = new String[] {
-		Note._ID,
-		Note.TITLE,
+	public static final int INSERT_ID 	= Menu.FIRST + 0;
+	public static final int SEARCH_ID 	= Menu.FIRST + 1;
+	public static final int PREFS_ID 	= Menu.FIRST + 2;
+
+	public static final int DELETE_ID 	= Menu.FIRST + 3;
+	public static final int SEND_ID 	= Menu.FIRST + 4;
+
+	private static final String[] PROJECTION = new String[] { 
+		Note._ID, Note.TITLE 
 	};
-    
+
 	private static final int COLUMN_INDEX_ID 		= 0;
-	private static final int COLUMN_INDEX_TITLE		= 1;
-	
+	private static final int COLUMN_INDEX_TITLE 	= 1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
-		
+
 		Intent intent = getIntent();
 		if (intent.getData() == null) {
 			intent.setData(Note.CONTENT_URI);
 		}
-		
+
 		registerForContextMenu(getListView());
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);        
-		Boolean largeListItems = preferences.getBoolean("listItemSize", true);	    
-		
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Boolean largeListItems = preferences.getBoolean("listItemSize", true);
+
 		Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null, Note.DEFAULT_SORT_ORDER);
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(
-			this, 
-			(largeListItems) ? R.layout.row_large : R.layout.row_small, 
-			cursor,
+		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
+			(largeListItems) ? R.layout.row_large : R.layout.row_small,
+			cursor, 
 			new String[] { Note.TITLE }, new int[] { android.R.id.text1 }
 		);
 		setListAdapter(adapter);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		
+
 		menu.add(0, INSERT_ID, 0, R.string.menu_insert)
 			.setIcon(android.R.drawable.ic_menu_add);
-		
+
 		menu.add(0, SEARCH_ID, 0, R.string.menu_search)
 			.setIcon(android.R.drawable.ic_menu_search);
-		
+
 		menu.add(0, PREFS_ID, 0, R.string.menu_prefs)
 			.setIcon(android.R.drawable.ic_menu_preferences);
-/*		
+/*
 		Intent intent = new Intent(null, getIntent().getData());
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
-		menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0,
-			new ComponentName(this, NoteList.class), null, intent, 0, null);
-*/		
+		menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0, new
+		ComponentName(this, NoteList.class), null, intent, 0, null);
+*/
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -98,14 +96,14 @@ public class NoteList extends ListActivity {
 			case SEARCH_ID:
 				onSearchRequested();
 				return true;
-	        case PREFS_ID:
-	        	Intent prefsActivity = new Intent(this, Preferences.class);
-	        	startActivity(prefsActivity);
-	        	return true;
+			case PREFS_ID:
+				Intent prefsActivity = new Intent(this, Preferences.class);
+				startActivity(prefsActivity);
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
 		AdapterView.AdapterContextMenuInfo info;
@@ -114,28 +112,28 @@ public class NoteList extends ListActivity {
 		} catch (ClassCastException e) {
 			return;
 		}
-		
+
 		Cursor cursor = (Cursor) getListAdapter().getItem(info.position);
 		if (cursor == null) {
 			return;
 		}
-		
+
 		menu.setHeaderTitle(cursor.getString(COLUMN_INDEX_TITLE));
-		
+
 		Uri uri = ContentUris.withAppendedId(getIntent().getData(), cursor.getInt(COLUMN_INDEX_ID));
-		
+
 		Intent[] specifics = new Intent[1];
 		specifics[0] = new Intent(Intent.ACTION_EDIT, uri);
 		MenuItem[] items = new MenuItem[1];
-		
+
 		Intent intent = new Intent(null, uri);
 		intent.addCategory(Intent.CATEGORY_ALTERNATIVE);
 		menu.addIntentOptions(Menu.CATEGORY_ALTERNATIVE, 0, 0, null, specifics, intent, 0, items);
-		
+
 		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
 		menu.add(0, SEND_ID, 0, R.string.menu_send);
 	}
-	
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info;
@@ -151,11 +149,11 @@ public class NoteList extends ListActivity {
 			case SEND_ID:
 				Uri uri = ContentUris.withAppendedId(Note.CONTENT_URI, info.id);
 				Cursor cursor = managedQuery(
-					uri, new String[] {Note._ID, Note.TITLE, Note.BODY}, null, null, null
+					uri, new String[] { Note._ID, Note.TITLE, Note.BODY }, null, null, null
 				);
 				Note note = Note.fromCursor(cursor);
 				cursor.close();
-				
+
 				Intent intent = new Intent(Intent.ACTION_SEND);
 				intent.setType("text/plain");
 				intent.putExtra(Intent.EXTRA_TEXT, note.getBody());
@@ -164,11 +162,11 @@ public class NoteList extends ListActivity {
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
-		
+
 		String action = getIntent().getAction();
 		if (Intent.ACTION_PICK.equals(action) || Intent.ACTION_GET_CONTENT.equals(action)) {
 			setResult(RESULT_OK, new Intent().setData(uri));
@@ -176,7 +174,7 @@ public class NoteList extends ListActivity {
 			startActivity(new Intent(Intent.ACTION_EDIT, uri));
 		}
 	}
-	
+
 	/** Delete a note, confirm when preferred.
 	 * @param context Context to use.
 	 * @param id ID of the note to delete.
@@ -184,14 +182,14 @@ public class NoteList extends ListActivity {
 	private void deleteNote(Context context, long id) {
 		final long noteId = id;
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-		Boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);	    
+		Boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);
 		if (deleteConfirmation) {
 			AlertDialog alertDialog = new AlertDialog.Builder(context)
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setTitle(R.string.dialog_delete)
 				.setMessage(R.string.delete_confirmation)
 				.setPositiveButton(R.string.dialog_confirm,
-					new DialogInterface.OnClickListener() {					
+					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Uri noteUri = ContentUris.withAppendedId(Note.CONTENT_URI, noteId);
@@ -207,5 +205,5 @@ public class NoteList extends ListActivity {
 			getContentResolver().delete(noteUri, null, null);
 		}
 	}
-	
+
 }

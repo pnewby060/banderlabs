@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bander.notepad"
-	android:versionName="1.01" android:versionCode="7"
+	android:versionName="1.02" android:versionCode="8"
 >
 	<application
 		android:icon="@drawable/icon"
@@ -19,7 +19,7 @@
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>			
+			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<action android:name="android.intent.action.EDIT" />
@@ -44,13 +44,13 @@
 		<activity android:name=".TitleEdit" android:label="@string/menu_edit_title"
 			android:windowSoftInputMode="stateVisible|adjustResize"
 		>
-            <intent-filter android:label="@string/menu_edit_title">
-                <action android:name="com.android.notepad.action.EDIT_TITLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.bander.note" />
-            </intent-filter>
+			<intent-filter android:label="@string/menu_edit_title">
+				<action android:name="com.android.notepad.action.EDIT_TITLE" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.ALTERNATIVE" />
+				<category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+				<data android:mimeType="vnd.android.cursor.item/vnd.bander.note" />
+			</intent-filter>
 		</activity>
 		
 		<activity android:name=".NoteEdit"
