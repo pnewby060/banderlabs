@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,39 +36,40 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 /** Main activity for FileMan, shows the contents of a single file-system directory. */
 public class Main extends ListActivity {
 	private static final int			ACTIVITY_PROPERTIES	= 0;	
-	
+
 	private static final int			REFRESH_ID 			= Menu.FIRST + 0;
 	private static final int			ROOT_ID 			= Menu.FIRST + 1;
 	private static final int			PASTE_ID 			= Menu.FIRST + 2;
 	private static final int			PREFS_ID 			= Menu.FIRST + 3;
-    
+
 	private static final int			VIEW_ID 			= Menu.FIRST + 4;
 	private static final int			SEND_ID 			= Menu.FIRST + 5;
 	private static final int			MOVE_ID				= Menu.FIRST + 6;
 	private static final int			COPY_ID				= Menu.FIRST + 7;
 	private static final int			DELETE_ID			= Menu.FIRST + 8;
 	private static final int			PROPERTIES_ID		= Menu.FIRST + 9;
-	
+
 	private static final String 		ICON				= "icon";
 	private static final String 		NAME				= "name";
 	private static final String 		SIZE				= "size";
 	private static final String 		LENGTH				= "length";
 	private static final String			ISDIRECTORY			= "isDirectory";
 	private static final String 		LASTMODIFIED		= "lastModified";
-	
+	private static final String 		TIMESTAMP			= "timestamp";
+
 	private static final String 		CURRENT_DIRECTORY	= "currentDirectory";
-    
-	private enum Sorting				{ NONE, NAME, SIZE }
+
+	private enum Sorting				{ NONE, NAME, SIZE, DATE }
 	private Sorting						mCurrentSorting		= Sorting.NAME;
 	private Boolean						mDetailedView		= false;
 	private Boolean						mHideDot			= false;
-	
+
 	private List<Map<String,Object>>	mDirectoryEntries	= new ArrayList<Map<String,Object>>(); 
 	private File						mCurrentDirectory	= new File("/"); 
-    
+
 	private int							mClipboardAction	= 0;
 	private File						mClipboardFile		= null;
-    	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,21 +88,21 @@ public class Main extends ListActivity {
 		super.onSaveInstanceState(outState);
 		outState.putString(CURRENT_DIRECTORY, mCurrentDirectory.getAbsolutePath());
 	}
-	
+
 	@Override
-    protected void onResume() {
-        super.onResume();
-        
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);		
-	    
+	protected void onResume() {
+		super.onResume();
+
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 		mDetailedView = preferences.getBoolean("detailedView", false);
 		int sortOrder = Integer.valueOf(preferences.getString("sortOrder", "1"));
 		mCurrentSorting = Sorting.values()[sortOrder];
 		mHideDot = preferences.getBoolean("hideDot", false);
-		
+
 		listDirectory(mCurrentDirectory);
-    }
-	
+	}
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
@@ -213,6 +215,9 @@ public class Main extends ListActivity {
 
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		String selectedFileName = (String) mDirectoryEntries.get(info.position).get(NAME);
+		
+		if (selectedFileName == getString(R.string.dir_parent)) return;
+		
 		menu.setHeaderTitle(selectedFileName);
 
 		//menu.add(0, VIEW_ID, 0, R.string.context_view);
@@ -226,7 +231,7 @@ public class Main extends ListActivity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		String selectedFileName = (String) mDirectoryEntries.get(info.position).get(NAME);
+		final String selectedFileName = (String) mDirectoryEntries.get(info.position).get(NAME);
 		final File clickedFile = getSelectedFile(selectedFileName);
 		switch (item.getItemId()) {
 			case VIEW_ID:
@@ -249,8 +254,14 @@ public class Main extends ListActivity {
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							clickedFile.delete();
-							listDirectory(mCurrentDirectory);
+							if (!clickedFile.delete()) {
+								Toast.makeText(getBaseContext(), 
+									String.format(getString(R.string.failed_delete_explanation), selectedFileName), 
+									Toast.LENGTH_SHORT
+								).show();
+							} else {
+								listDirectory(mCurrentDirectory);
+							}
 						}
 					}
 				);
@@ -271,12 +282,30 @@ public class Main extends ListActivity {
 			if (resultCode == RESULT_OK) {
 				String filename_from = intent.getStringExtra(Properties.FILENAME_FROM);
 				String filename_to = intent.getStringExtra(Properties.FILENAME_TO);
-				File file_from = getSelectedFile(filename_from);
-				File file_to = getSelectedFile(filename_to);
-				file_from.renameTo(file_to);
+				if (!filename_from.equals(filename_to)) {
+					File file_from = getSelectedFile(filename_from);
+					File file_to = getSelectedFile(filename_to);
+					if (!file_from.renameTo(file_to)) {
+						Toast.makeText(this, 
+							String.format(getString(R.string.failed_rename_explanation), filename_from, filename_to), 
+							Toast.LENGTH_LONG
+						).show();
+					}
+				}
 			}
 		}
 		listDirectory(mCurrentDirectory);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			if (mCurrentDirectory.getParent() != null) {
+				listDirectory(mCurrentDirectory.getParentFile());
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	/** View an item from the list. Directories are listed, files are opened.
@@ -330,10 +359,16 @@ public class Main extends ListActivity {
 				if (s1 < s2) return -1;
 				if (s1 > s2) return +1;
 			}
+			if (mSorting == Sorting.DATE) {
+				long s1 = (Long) o1.get(TIMESTAMP);
+				long s2 = (Long) o2.get(TIMESTAMP);
+				if (s1 > s2) return -1;
+				if (s1 < s2) return +1;
+			}
 			String l1 = (String) o1.get(NAME);
 			String l2 = (String) o2.get(NAME);
-			return l1.compareToIgnoreCase(l2);			
-		}		
+			return l1.compareToIgnoreCase(l2);
+		}
 	}
 	
 	/** Shows the specified directory in the list. The directory specified also
@@ -366,6 +401,7 @@ public class Main extends ListActivity {
 			parentDir.put(ICON, R.drawable.parent);
 			parentDir.put(NAME, getString(R.string.dir_parent));
 			parentDir.put(LENGTH, (Long) 0l);
+			parentDir.put(TIMESTAMP, (Long) Long.MAX_VALUE);
 			mDirectoryEntries.add(parentDir);
 		}
 		
@@ -393,6 +429,7 @@ public class Main extends ListActivity {
 						dateFormat.format(lastModified) + " " + timeFormat.format(lastModified)
 					);
 				}
+				entry.put(TIMESTAMP, file.lastModified());
 			} catch (Exception e) {
 				// fail silently
 			}

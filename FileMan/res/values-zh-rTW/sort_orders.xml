@@ -4,10 +4,12 @@
 		<item>無</item>
 		<item>檔案名</item>
 		<item>檔案大小</item>
+		<item>最後修改</item>
 	</string-array>
 	<string-array name="sortOrderValues">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>
+		<item>3</item>
 	</string-array>	
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bander.fileman"
-	android:versionName="1.01" android:versionCode="16"
+	android:versionName="1.02" android:versionCode="17"
 >
 	<application
 		android:icon="@drawable/icon"
@@ -25,7 +25,7 @@
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<action android:name="android.intent.action.EDIT" />
-                <category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.DEFAULT" />
 				<data android:mimeType="text/*" android:scheme="file" />
 			</intent-filter>
 		</activity>
