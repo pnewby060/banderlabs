@@ -4,10 +4,12 @@
 		<item>无</item>
 		<item>文件名</item>
 		<item>文件大小</item>
+		<item>最后修改</item>
 	</string-array>
 	<string-array name="sortOrderValues">
 		<item>0</item>
 		<item>1</item>
 		<item>2</item>
+		<item>3</item>
 	</string-array>	
 </resources>

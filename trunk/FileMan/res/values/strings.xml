@@ -30,6 +30,8 @@
 	<string name="file_explanation">Navigate to target directory and select Menu->Paste.</string>
 	<string name="failed_open_explanation">Could not open \'%1$s\'.</string>
 	<string name="failed_copy_explanation">Could not copy \'%1$s\'.</string>
+	<string name="failed_delete_explanation">Could not delete \'%1$s\'.</string>
+	<string name="failed_rename_explanation">Could not rename \'%1$s\' to \'%2$s\'.</string>
 		
 	<string name="props_type">Type</string>
 	<string name="props_type_directory">Directory</string>

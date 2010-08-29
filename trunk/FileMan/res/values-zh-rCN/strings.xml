@@ -28,8 +28,11 @@
 	<string name="dialog_ok">确认</string>
 	<string name="dialog_cancel">取消</string>
 	<string name="file_explanation">转到目标文件夹，然后在按 Menu 键后选择粘贴。</string>
-	<string name="failed_open_explanation">无法打开 \'%1$s\'.</string>
-	<string name="failed_copy_explanation">无法复制 \'%1$s\'.</string>
+	<string name="failed_open_explanation">无法打开 \'%1$s\'。</string>
+	<string name="failed_copy_explanation">无法复制 \'%1$s\'。</string>
+	<string name="failed_delete_explanation">无法删除\'%1$s\'。</string>
+	<string name="failed_rename_explanation">无法 \'%1$s\' 重命名到\'%2$s\'。</string>
+	
 		
 	<string name="props_type">类型</string>
 	<string name="props_type_directory">文件夹</string>

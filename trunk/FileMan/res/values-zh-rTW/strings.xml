@@ -28,8 +28,10 @@
 	<string name="dialog_ok">確認</string>
 	<string name="dialog_cancel">取消</string>
 	<string name="file_explanation">轉到目標資料夾，然後在按 Menu 鍵後選取貼上。</string>
-	<string name="failed_open_explanation">無法開啟 \'%1$s\'.</string>
-	<string name="failed_copy_explanation">無法複製 \'%1$s\'.</string>
+	<string name="failed_open_explanation">無法開啟 \'%1$s\'。</string>
+	<string name="failed_copy_explanation">無法複製 \'%1$s\'。</string>
+	<string name="failed_delete_explanation">無法刪除\'%1$s\'。</string>
+	<string name="failed_rename_explanation">無法\'%1$s\' 重命名到\'%2$s\'。</string>
 		
 	<string name="props_type">類型</string>
 	<string name="props_type_directory">資料夾</string>

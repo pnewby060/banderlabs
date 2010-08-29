@@ -29,7 +29,6 @@ public class Properties extends Activity {
 	private static final int		SEND_ID 			= Menu.FIRST + 1;
 	private static final int		PREFS_ID 			= Menu.FIRST + 2;
 	
-	
 	private EditText	mFilenameEdit;
 	
 	private File		mFile;
@@ -38,32 +37,32 @@ public class Properties extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.properties);
-		
+
 		Bundle extras = getIntent().getExtras();            
 		String filename = (extras != null)
 			? extras.getString(FILENAME_FROM) 
 			: "";
-			
+
 		mFile = new File(filename);
-		
+
 		mFilenameEdit = (EditText) findViewById(R.id.edit_filename);
 		Button okButton = (Button) findViewById(R.id.button_ok);
 		Button cancelButton = (Button) findViewById(R.id.button_cancel);
-				
+
 		okButton.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View view) {
-		    	Intent resultIntent = new Intent();
-		    	resultIntent.putExtra(FILENAME_FROM, mFile.getName());
-		    	resultIntent.putExtra(FILENAME_TO, mFilenameEdit.getText().toString());
-		    	setResult(RESULT_OK, resultIntent);
-		    	finish();
-		    }		           
+			public void onClick(View view) {
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra(FILENAME_FROM, mFile.getName());
+				resultIntent.putExtra(FILENAME_TO, mFilenameEdit.getText().toString());
+				setResult(RESULT_OK, resultIntent);
+				finish();
+			}
 		});
 		cancelButton.setOnClickListener(new View.OnClickListener() {
-		    public void onClick(View view) {
-		    	setResult(RESULT_CANCELED);
-		    	finish();
-		    }		           
+			public void onClick(View view) {
+				setResult(RESULT_CANCELED);
+				finish();
+			}
 		});
 	}
 	
@@ -93,7 +92,7 @@ public class Properties extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case REVERT_ID:
-				mFilenameEdit.setText(mFile.getName());
+				mFilenameEdit.setTextKeepState(mFile.getName());
 				return true;
 			case SEND_ID:
 				Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -110,7 +109,7 @@ public class Properties extends Activity {
 
 	private void fillView() {
 		setTitle(mFile.getParent());
-		mFilenameEdit.setText(mFile.getName());
+		mFilenameEdit.setTextKeepState(mFile.getName());
 		
 		if (mFile.isDirectory()) {
 			setTextView(R.id.props_type, getString(R.string.props_type_directory));
