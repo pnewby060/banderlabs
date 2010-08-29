@@ -44,15 +44,23 @@ public class NoteEdit extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		final Intent intent = getIntent();
+		if (savedInstanceState != null) {
+			final Object note = savedInstanceState.get(ORIGINAL_NOTE);
+			if (note != null) mOriginalNote = (Note) note;
+		}
 
+		final Intent intent = getIntent();
 		final String action = intent.getAction();
 		if (Intent.ACTION_VIEW.equals(action) || Intent.ACTION_EDIT.equals(action)) {
 			mState = STATE_EDIT;
 			mUri = intent.getData();
 		} else if (Intent.ACTION_INSERT.equals(action)) {
 			mState = STATE_INSERT;
-			mUri = getContentResolver().insert(intent.getData(), null);
+			if (mOriginalNote == null) {
+				mUri = getContentResolver().insert(intent.getData(), null);
+			} else {
+				mUri = mOriginalNote.getUri();
+			}
 
 			setResult(RESULT_OK, (new Intent()).setAction(mUri.toString()));
 		}
@@ -63,11 +71,6 @@ public class NoteEdit extends Activity {
 		}
 
 		setContentView(R.layout.edit);
-
-		if (savedInstanceState != null) {
-			final Object note = savedInstanceState.get(ORIGINAL_NOTE);
-			if (note != null) mOriginalNote = (Note) note;
-		}
 
 		mBodyText = (EditText) findViewById(R.id.body);
 
@@ -172,7 +175,7 @@ public class NoteEdit extends Activity {
 				deleteNote(this, mUri);
 				return true;
 			case REVERT_ID:
-				mBodyText.setText(mOriginalNote.getBody());
+				mBodyText.setTextKeepState(mOriginalNote.getBody());
 				return true;
 			case SEND_ID:
 				Intent intent = new Intent(Intent.ACTION_SEND);

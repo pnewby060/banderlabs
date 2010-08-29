@@ -38,6 +38,10 @@ public class TitleEdit extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if (savedInstanceState != null) {
+			mOriginalTitle = savedInstanceState.getString(ORIGINAL_TITLE);
+		}
+
 		setContentView(R.layout.edit_title);
 
 		mUri = getIntent().getData();
@@ -47,10 +51,6 @@ public class TitleEdit extends Activity {
 
 		Button confirmButton = (Button) findViewById(R.id.confirm);
 		Button cancelButton = (Button) findViewById(R.id.cancel);
-
-		if (savedInstanceState != null) {
-			mOriginalTitle = savedInstanceState.getString(ORIGINAL_TITLE);
-		}
 
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -77,7 +77,7 @@ public class TitleEdit extends Activity {
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 			String title = mCursor.getString(COLUMN_INDEX_TITLE);
-			mTitleText.setText(title);
+			mTitleText.setTextKeepState(title);
 
 			if (mOriginalTitle == null) {
 				mOriginalTitle = title;
@@ -113,7 +113,7 @@ public class TitleEdit extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case REVERT_ID:
-				mTitleText.setText(mOriginalTitle);
+				mTitleText.setTextKeepState(mOriginalTitle);
 				return true;
 			case PREFS_ID:
 				Intent prefsActivity = new Intent(this, Preferences.class);
