@@ -1,6 +1,7 @@
 package bander.provider;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,13 +35,15 @@ public class Note implements BaseColumns, Parcelable {
 	/** The creation date of the note. <P>Type: INTEGER</P> */
 	public static final String CREATED = "created";
 
-	private int mId;
+	private long mId;
 	private String mTitle;
 	private String mBody;
 
 	public String getTitle() 	{ return mTitle; }
 	public String getBody() 	{ return mBody; }
 
+	public Uri getUri()			{ return ContentUris.withAppendedId(CONTENT_URI, mId); }
+	
 	/** Creates a new instance of the <code>Note</code> class. */
 	public Note() {
 		mId = -1;
@@ -54,7 +57,7 @@ public class Note implements BaseColumns, Parcelable {
 	}
 
 	private Note(Parcel in) {
-		mId = in.readInt();
+		mId = in.readLong();
 		mTitle = in.readString();
 		mBody = in.readString();
 	}
@@ -81,7 +84,7 @@ public class Note implements BaseColumns, Parcelable {
 
 		if (cursor.getCount() > 0) {
 			if (cursor.moveToFirst()) {
-				note.mId = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
+				note.mId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID));
 				note.mTitle = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
 				note.mBody = cursor.getString(cursor.getColumnIndexOrThrow(BODY));
 			}
@@ -97,7 +100,7 @@ public class Note implements BaseColumns, Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(mId);
+		dest.writeLong(mId);
 		dest.writeString(mTitle);
 		dest.writeString(mBody);
 	}
