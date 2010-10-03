@@ -230,7 +230,7 @@ public class NoteEdit extends Activity {
 				.setMessage(R.string.delete_confirmation)
 				.setPositiveButton(R.string.dialog_confirm,
 					new DialogInterface.OnClickListener() {
-						@Override
+						// OnClickListener
 						public void onClick(DialogInterface dialog, int which) {
 							getContentResolver().delete(noteUri, null, null);
 							finish();

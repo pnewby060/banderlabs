@@ -93,12 +93,12 @@ public class Note implements BaseColumns, Parcelable {
 		return note;
 	}
 
-	@Override
+	// Parcelable
 	public int describeContents() {
 		return 0;
 	}
 
-	@Override
+	// Parcelable
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeLong(mId);
 		dest.writeString(mTitle);
