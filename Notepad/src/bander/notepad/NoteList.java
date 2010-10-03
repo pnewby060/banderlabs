@@ -190,7 +190,7 @@ public class NoteList extends ListActivity {
 				.setMessage(R.string.delete_confirmation)
 				.setPositiveButton(R.string.dialog_confirm,
 					new DialogInterface.OnClickListener() {
-						@Override
+						// OnClickListener
 						public void onClick(DialogInterface dialog, int which) {
 							Uri noteUri = ContentUris.withAppendedId(Note.CONTENT_URI, noteId);
 							getContentResolver().delete(noteUri, null, null);
