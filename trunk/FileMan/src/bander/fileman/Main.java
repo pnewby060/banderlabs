@@ -166,7 +166,7 @@ public class Main extends ListActivity {
 							showAlertDialog(getString(R.string.dialog_move), 
 								String.format(getString(R.string.move_confirmation), mClipboardFile.getName(), mCurrentDirectory),
 								new DialogInterface.OnClickListener() {					
-									@Override
+									// OnClickListener
 									public void onClick(DialogInterface dialog, int which) {
 										mClipboardFile.renameTo(getSelectedFile(mClipboardFile.getName()));
 										mClipboardAction = 0;
@@ -180,7 +180,7 @@ public class Main extends ListActivity {
 							showAlertDialog(getString(R.string.dialog_copy), 
 								String.format(getString(R.string.copy_confirmation), mClipboardFile.getName(), mCurrentDirectory),
 								new DialogInterface.OnClickListener() {					
-									@Override
+									// OnClickListener
 									public void onClick(DialogInterface dialog, int which) {
 										try {
 											FileUtils.copyFile(mClipboardFile, getSelectedFile(mClipboardFile.getName()));
@@ -252,7 +252,7 @@ public class Main extends ListActivity {
 				showAlertDialog(getString(R.string.dialog_delete), 
 					String.format(getString(R.string.delete_confirmation), clickedFile.getName()), 
 					new DialogInterface.OnClickListener() {
-						@Override
+						// OnClickListener
 						public void onClick(DialogInterface dialog, int which) {
 							if (!clickedFile.delete()) {
 								Toast.makeText(getBaseContext(), 
