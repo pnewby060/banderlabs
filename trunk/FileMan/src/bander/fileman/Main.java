@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.view.ContextMenu;
@@ -78,8 +79,12 @@ public class Main extends ListActivity {
 		if (savedInstanceState != null) {
 			String currentDirectory = savedInstanceState.getString(CURRENT_DIRECTORY);
 			mCurrentDirectory = new File(currentDirectory);
+		} else {
+			// Start up in the external storage directory, if available.
+			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+				mCurrentDirectory = Environment.getExternalStorageDirectory();
+			}
 		}
-
 		registerForContextMenu(getListView());
 	}
 	
