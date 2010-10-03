@@ -6,10 +6,10 @@
 >
 	<EditText android:id="@+id/body"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="0dip"
 		android:gravity="top|left"
 		android:layout_weight="1"
-		android:capitalize="sentences"		
+		android:capitalize="sentences"
 		android:scrollbars="vertical"
 	/>
 	<LinearLayout
