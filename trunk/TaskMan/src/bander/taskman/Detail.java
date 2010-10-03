@@ -173,7 +173,7 @@ public class Detail extends Activity implements View.OnClickListener {
 		
 	}
 		
-	@Override
+	// OnClickListener
     public void onClick(View v) {
     	if (v == mUninstallButton) {
     		Uri packageURI = Uri.parse("package:" + mPackageName);
