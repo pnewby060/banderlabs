@@ -10,7 +10,7 @@ import android.widget.SimpleAdapter;
   */
 public class DrawableViewBinder implements SimpleAdapter.ViewBinder {
 
-	@Override
+	// ViewBinder
 	public boolean setViewValue(View view, Object data, String textRepresentation) {
 		if (view instanceof ImageView) {
 			ImageView imageView = (ImageView) view;
