@@ -31,18 +31,18 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /** Main activity for TaskMan, shows a list of running tasks. */
 public class Main extends ListActivity {
-	private static final String 	ICON						= "icon";
-	private static final String 	TITLE						= "title";
-	private static final String 	DESCRIPTION					= "desc";
-	
-	private static final int		REFRESH_ID 					= Menu.FIRST + 0;
-	private static final int		SHOWALL_ID 					= Menu.FIRST + 1;
-	
-	private static final int 		KILL_ID 					= Menu.FIRST + 2;
-	private static final int 		HIDE_ID 					= Menu.FIRST + 3;
-	private static final int 		DETAILS_ID 					= Menu.FIRST + 4;
+	private static final String ICON		= "icon";
+	private static final String TITLE 		= "title";
+	private static final String DESCRIPTION = "desc";
 
-	private static final String 	HIDDENPACKAGES_FILENAME 	= "hiddenpackages";
+	private static final int REFRESH_ID 	= Menu.FIRST + 0;
+	private static final int SHOWALL_ID 	= Menu.FIRST + 1;
+
+	private static final int KILL_ID 		= Menu.FIRST + 2;
+	private static final int HIDE_ID 		= Menu.FIRST + 3;
+	private static final int DETAILS_ID 	= Menu.FIRST + 4;
+
+	private static final String HIDDENPACKAGES_FILENAME = "hiddenpackages";
 
 	private List<ActivityManager.RunningTaskInfo> mRunningTasks;
 	private List<String> mHiddenPackages;
@@ -59,7 +59,7 @@ public class Main extends ListActivity {
 
 	@Override
 	protected void onResume() {
-		super.onResume();		
+		super.onResume();
 		listTasks();
 	}
 
@@ -99,7 +99,7 @@ public class Main extends ListActivity {
 		killTask(index);
 		listTasks();
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
@@ -112,7 +112,9 @@ public class Main extends ListActivity {
 			ApplicationInfo applicationInfo = packageManager.getApplicationInfo(
 				taskInfo.baseActivity.getPackageName(), 0
 			);
-			menu.setHeaderTitle(packageManager.getApplicationLabel(applicationInfo).toString());
+			menu.setHeaderTitle(
+				packageManager.getApplicationLabel(applicationInfo).toString()
+			);
 		} catch (NameNotFoundException e) {
 			// Fail silently.
 		}
@@ -121,7 +123,7 @@ public class Main extends ListActivity {
 		menu.add(0, HIDE_ID, 0, R.string.menu_hide);
 		menu.add(0, DETAILS_ID, 0, R.string.menu_details);
 	}
-    
+
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -150,7 +152,7 @@ public class Main extends ListActivity {
 		List<RunningTaskInfo> runningTasks = activityManager.getRunningTasks(128);
 
 		PackageManager packageManager = getPackageManager();
-		
+
 		mRunningTasks = new ArrayList<RunningTaskInfo>();
 		ArrayList<Map<String, Object>> listEntries = new ArrayList<Map<String, Object>>();
 		for (RunningTaskInfo taskInfo : runningTasks) {
@@ -158,11 +160,12 @@ public class Main extends ListActivity {
 				continue;
 
 			mRunningTasks.add(taskInfo);
-			
+
 			Map<String, Object> entry = new HashMap<String, Object>();
 			try {
-				ApplicationInfo applicationInfo = packageManager.getApplicationInfo(taskInfo.baseActivity.getPackageName(), 0);
-
+				ApplicationInfo applicationInfo = packageManager.getApplicationInfo(
+					taskInfo.baseActivity.getPackageName(), 0
+				);
 				entry.put(ICON, packageManager.getApplicationIcon(applicationInfo));
 				entry.put(TITLE, packageManager.getApplicationLabel(applicationInfo).toString());
 			} catch (NameNotFoundException e) {
@@ -174,16 +177,15 @@ public class Main extends ListActivity {
 			listEntries.add(entry);
 		}
 		SimpleAdapter adapter = new SimpleAdapter(
-			this, listEntries,
-			R.layout.row,
-			new String[] { ICON, TITLE, DESCRIPTION }, 
+			this, listEntries, R.layout.row, 
+			new String[] { ICON, TITLE, DESCRIPTION },
 			new int[] { R.id.icon, R.id.title, R.id.description }
 		);
 		adapter.setViewBinder(new DrawableViewBinder());
-		
+
 		setListAdapter(adapter);
 	}
-    
+
 	/** Kills a specified task.
 	 * @param index Index into the mRunningTasks list of the activity to kill.
 	 */
@@ -221,5 +223,5 @@ public class Main extends ListActivity {
 		} catch (IOException e) {
 		}
 	}
-        
+
 }
