@@ -7,6 +7,7 @@ import android.preference.PreferenceActivity;
 
 /** Preferences activity for Notepad. */
 public class Preferences extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
+	private static final String KEY_SORTORDER = "sortOrder";
 	private static final String KEY_TEXTSIZE = "textSize";
 
 	@Override
@@ -14,6 +15,10 @@ public class Preferences extends PreferenceActivity implements Preference.OnPref
 		super.onCreate(savedInstanceState);
 
 		addPreferencesFromResource(R.xml.preferences);
+
+		ListPreference sortOrderPreference = (ListPreference) findPreference(KEY_SORTORDER);
+		sortOrderPreference.setOnPreferenceChangeListener(this);
+		setSortOrderSummary(sortOrderPreference);
 
 		ListPreference textSizePreference = (ListPreference) findPreference(KEY_TEXTSIZE);
 		textSizePreference.setOnPreferenceChangeListener(this);
@@ -23,18 +28,26 @@ public class Preferences extends PreferenceActivity implements Preference.OnPref
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		final String key = preference.getKey();
 
+		if (KEY_SORTORDER.equals(key)) {
+			ListPreference sortOrderPreference = (ListPreference) preference;
+			sortOrderPreference.setValue((String) newValue);
+			setSortOrderSummary(sortOrderPreference);
+			return false;
+		}
 		if (KEY_TEXTSIZE.equals(key)) {
 			ListPreference textSizePreference = (ListPreference) preference;
 			textSizePreference.setValue((String) newValue);
 			setTextSizeSummary(textSizePreference);
 			return false;
 		}
-
 		return true;
+	}
+
+	private void setSortOrderSummary(ListPreference preference) {
+		preference.setSummary(getString(R.string.pref_sortOrderSummary, preference.getEntry()));	
 	}
 
 	private void setTextSizeSummary(ListPreference preference) {
 		preference.setSummary(getString(R.string.pref_textSizeSummary, preference.getEntry()));
 	}
-
 }

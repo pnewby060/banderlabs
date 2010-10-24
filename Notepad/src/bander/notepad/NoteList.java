@@ -57,7 +57,10 @@ public class NoteList extends ListActivity {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		Boolean largeListItems = preferences.getBoolean("listItemSize", true);
 
-		Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null, Note.DEFAULT_SORT_ORDER);
+		int sortOrder = Integer.valueOf(preferences.getString("sortOrder", "1"));
+		String sorting = Note.SORT_ORDERS[sortOrder];
+
+		Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null, sorting);
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 			(largeListItems) ? R.layout.row_large : R.layout.row_small,
 			cursor, 

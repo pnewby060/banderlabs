@@ -26,6 +26,11 @@ public class Note implements BaseColumns, Parcelable {
 	/** The default sort order. */
 	public static final String DEFAULT_SORT_ORDER = "_id DESC";
 
+	/** Possible relevant sort orders. */
+	public static final String[] SORT_ORDERS = new String[] { 
+		Note.DEFAULT_SORT_ORDER, Note.TITLE, Note.CREATED
+	};
+
 	/** The title of the note. <P>Type: TEXT</P> */
 	public static final String TITLE = "title";
 

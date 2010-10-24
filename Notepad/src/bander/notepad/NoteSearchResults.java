@@ -97,8 +97,12 @@ public class NoteSearchResults extends ListActivity {
 	 * @param query Search term to query with.
 	 */
 	private void showResults(String query) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		int sortOrder = Integer.valueOf(preferences.getString("sortOrder", "1"));
+		String sorting = Note.SORT_ORDERS[sortOrder];
+
 		Cursor cursor = managedQuery(
-			Note.CONTENT_URI, PROJECTION, Note.BODY + " LIKE ?", new String[] { "%" + query + "%" }, null
+			Note.CONTENT_URI, PROJECTION, Note.BODY + " LIKE ?", new String[] { "%" + query + "%" }, sorting
 		);
 
 		if (cursor != null) {
@@ -111,7 +115,6 @@ public class NoteSearchResults extends ListActivity {
 			if (count == 0) {
 				mEmptyText.setText(getString(R.string.search_noresults, new Object[] { query }));
 			} else {
-				SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 				Boolean largeListItems = preferences.getBoolean("listItemSize", true);
 
 				SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
