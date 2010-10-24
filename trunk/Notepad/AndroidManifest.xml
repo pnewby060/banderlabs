@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bander.notepad"
-	android:versionName="1.03" android:versionCode="9"
+	android:versionName="1.04" android:versionCode="10"
 >
 	<application
 		android:icon="@drawable/icon"
@@ -70,6 +70,7 @@
 			</intent-filter>
 		</activity>
 		
+		<activity android:name=".NoteExport" android:launchMode="singleTop"></activity>
 		<activity android:name=".Preferences"></activity>
 	</application>
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
@@ -79,4 +80,6 @@
 		android:smallScreens="true"
 		android:anyDensity="true"
 	/>
+
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />		
 </manifest>

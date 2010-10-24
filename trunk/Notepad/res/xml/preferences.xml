@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<CheckBoxPreference 
 		android:title="@string/pref_listItemSize"
 		android:summaryOff="@string/pref_listItemSizeSummaryOff" 
 		android:summaryOn="@string/pref_listItemSizeSummaryOn"
 		android:key="listItemSize"
 		android:defaultValue="true"
+	/>
+	<ListPreference android:key="sortOrder"
+		android:title="@string/pref_sortOrder"
+		android:summary="@string/pref_sortOrderSummary"
+		android:defaultValue="1"
+		android:entries="@array/sortOrderEntries"
+		android:entryValues="@array/sortOrderValues"
 	/>
 	<ListPreference
 		android:title="@string/pref_textSize"
@@ -23,4 +29,15 @@
 		android:key="deleteConfirmation"
 		android:defaultValue="true"
 	/>
+ 	<PreferenceCategory android:title="@string/pref_notes">			
+		<PreferenceScreen
+			android:title="@string/pref_export"
+			android:summary="@string/pref_exportSummary">
+			<intent
+				android:targetPackage="bander.notepad"
+				android:action="bander.notepad.action.ACTION_EXPORT"
+				android:targetClass="bander.notepad.NoteExport"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
 </PreferenceScreen>
