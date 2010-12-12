@@ -8,6 +8,7 @@ This version has a preference to set text size, optional delete confirmation, it
 
 The notes have a context menu accessed by long-pressing the note title in the list view, and most screens have an options menu accessed by pressing the 'Menu' button on your Android device.
 
+||v1.04||Added sorting of notes list, exporting of to SD card.||
 ||v1.03||Fixed orientation change handling.||
 ||v1.02||Fixed crash in edit activity.||
 ||v1.01||Added delete confirmation dialog.||
@@ -17,7 +18,7 @@ The notes have a context menu accessed by long-pressing the note title in the li
 
 = Screenshots =
 
-http://lh5.ggpht.com/_cwLQAvN2y84/TF8FfCsJuGI/AAAAAAAAACM/t6PHaFQ2Y5s/notepad01.png
-http://lh5.ggpht.com/_cwLQAvN2y84/TGm_AxhckOI/AAAAAAAAADY/RC1hjeuO3y8/Notepadv02.png
-http://lh6.ggpht.com/_cwLQAvN2y84/TF8FfZndBxI/AAAAAAAAACU/7IjpZ4UGO30/notepad03.png
-http://lh3.ggpht.com/_cwLQAvN2y84/TF8FfqR1tUI/AAAAAAAAACY/PEe8qhZ3fsY/notepad04.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzr4ScMI/AAAAAAAAAFs/TmyE6HMJJcc/notepad00a.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsLyYyI/AAAAAAAAAFw/yhaSdD9UBLc/notepad00b.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsi6bWI/AAAAAAAAAF0/R66GhgczfT0/notepad00c.png
+http://lh4.ggpht.com/_cwLQAvN2y84/TQVHznB81dI/AAAAAAAAAF4/7gAIPywBb0E/notepad00d.png
