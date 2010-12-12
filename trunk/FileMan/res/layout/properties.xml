@@ -24,6 +24,7 @@
 				android:layout_width="0dip"
 				android:layout_height="wrap_content"
 				android:paddingLeft="6dip"
+				android:paddingRight="3dip"
 				android:text="@string/props_type"
 				android:layout_weight="1"
 			/>
@@ -43,6 +44,7 @@
 				android:layout_width="0dip"
 				android:layout_height="wrap_content"
 				android:paddingLeft="6dip"
+				android:paddingRight="3dip"
 				android:text="@string/props_filesize"
 				android:layout_weight="1"
 			/>
@@ -62,6 +64,7 @@
 				android:layout_width="0dip"
 				android:layout_height="wrap_content"
 				android:paddingLeft="6dip"
+				android:paddingRight="3dip"
 				android:text="@string/props_lastmodified"
 				android:layout_weight="1"
 			/>
