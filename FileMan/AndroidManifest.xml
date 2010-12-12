@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bander.fileman"
-	android:versionName="1.02" android:versionCode="18"
+	android:versionName="1.03" android:versionCode="19"
 >
 	<application
 		android:icon="@drawable/icon"
@@ -39,5 +39,5 @@
 		android:anyDensity="true"
 	/>
 	
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />	
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
