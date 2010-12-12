@@ -18,7 +18,7 @@ The notes have a context menu accessed by long-pressing the note title in the li
 
 = Screenshots =
 
-http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzr4ScMI/AAAAAAAAAFs/TmyE6HMJJcc/notepad00a.png
-http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsLyYyI/AAAAAAAAAFw/yhaSdD9UBLc/notepad00b.png
-http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsi6bWI/AAAAAAAAAF0/R66GhgczfT0/notepad00c.png
-http://lh4.ggpht.com/_cwLQAvN2y84/TQVHznB81dI/AAAAAAAAAF4/7gAIPywBb0E/notepad00d.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzr4ScMI/AAAAAAAAAFs/TmyE6HMJJcc/s288/notepad00a.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsLyYyI/AAAAAAAAAFw/yhaSdD9UBLc/s288/notepad00b.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TQVHzsi6bWI/AAAAAAAAAF0/R66GhgczfT0/s288/notepad00c.png
+http://lh4.ggpht.com/_cwLQAvN2y84/TQVHznB81dI/AAAAAAAAAF4/7gAIPywBb0E/s288/notepad00d.png
