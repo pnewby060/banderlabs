@@ -3,6 +3,8 @@
 	<string name="app_name">FileMan</string>
 	<string name="app_description">BanderLabs</string>
 
+	<string name="files">Files</string>
+
 	<string name="dir_parent">..</string>
 
 	<string name="context_view">View</string>

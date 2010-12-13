@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="bander.fileman"
-	android:versionName="1.03" android:versionCode="19"
+	android:versionName="1.04" android:versionCode="20"
 >
 	<application
 		android:icon="@drawable/icon"
@@ -9,10 +9,16 @@
 		android:description="@string/app_description"
 		android:debuggable="false"
 	>
-		<activity android:name=".Main" android:label="@string/app_name">
+		<activity android:name=".Main" android:label="@string/files">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.GET_CONTENT" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.OPENABLE" />
+				<data android:mimeType="*/*" />
 			</intent-filter>
 		</activity>
 		

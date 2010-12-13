@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -62,20 +63,36 @@ public class Main extends ListActivity {
 
 	private enum Sorting				{ NONE, NAME, SIZE, DATE }
 	private Sorting						mCurrentSorting		= Sorting.NAME;
-	private Boolean						mDetailedView		= false;
-	private Boolean						mHideDot			= false;
+	private boolean						mDetailedView		= false;
+	private boolean						mHideDot			= false;
 
 	private List<Map<String,Object>>	mDirectoryEntries	= new ArrayList<Map<String,Object>>(); 
 	private File						mCurrentDirectory	= new File("/"); 
 
 	private int							mClipboardAction	= 0;
 	private File						mClipboardFile		= null;
+	
+	private boolean						mIsFilePicker		= false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 		
+		final Intent intent = getIntent();
+		final String action = intent.getAction();
+		if (Intent.ACTION_GET_CONTENT.equals(action)) {
+			mIsFilePicker = true;
+			setContentView(R.layout.filepicker);
+			Button cancelButton = (Button) findViewById(R.id.cancel);
+			cancelButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View view) {
+					finish();
+				}
+			});
+		} else {
+			setContentView(R.layout.main);
+		}
+			
 		if (savedInstanceState != null) {
 			String currentDirectory = savedInstanceState.getString(CURRENT_DIRECTORY);
 			mCurrentDirectory = new File(currentDirectory);
@@ -259,7 +276,7 @@ public class Main extends ListActivity {
 					new DialogInterface.OnClickListener() {
 						// OnClickListener
 						public void onClick(DialogInterface dialog, int which) {
-							if (!clickedFile.delete()) {
+							if (!deleteFile(clickedFile)) {
 								Toast.makeText(getBaseContext(), 
 									String.format(getString(R.string.failed_delete_explanation), selectedFileName), 
 									Toast.LENGTH_SHORT
@@ -320,7 +337,14 @@ public class Main extends ListActivity {
 		if (file.isDirectory()) {
 			listDirectory(file);
 		} else {
-			openFile(file);
+			if (mIsFilePicker) {
+				Intent intent = getIntent();
+				intent.setData(Uri.fromFile(file));
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				openFile(file);
+			}
 		}
 	}
 	
@@ -342,6 +366,23 @@ public class Main extends ListActivity {
 				Toast.LENGTH_SHORT
 			).show();
 		}
+	}
+
+	/** Deletes the specified file or directory, and in case of directories
+	 * all contained files and sub-directories.  
+	 * @param file File to delete
+	 * @return True if the delete succeeded, false otherwise.
+	 */
+	private boolean deleteFile(final File file) {
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			for (File child : files) {
+				if (!deleteFile(child)) {
+					return false;
+				}
+			}
+		}
+		return file.delete();
 	}
 	
 	/** Utility object to sort file list item objects. */

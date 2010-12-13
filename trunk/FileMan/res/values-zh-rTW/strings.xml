@@ -2,6 +2,8 @@
 <resources>
 	<string name="app_name">FileMan</string>
 	<string name="app_description">BanderLabs</string>
+	
+	<string name="files">檔</string>
 
 	<string name="dir_parent">..</string>
 
