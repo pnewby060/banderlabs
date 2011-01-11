@@ -1,13 +1,14 @@
-#summary Notepad - yet another version of Google's tutorial app.
+#summary Notepad - simple, easy-to-use note-taking app.
 
 = Introduction =
 
-Notepad is a simple, easy-to-use note-taking app which is based on Google's tutorial  [http://developer.android.com/resources/tutorials/notepad/index.html NotePad] app.
+Notepad is a simple, easy-to-use note-taking app.
 
-This version has a preference to set text size, optional delete confirmation, it can search, and it has the ability to send the note via e-mail or any other messenger services.
+This version has a preference to set text size, optional delete confirmation, it can search, sort your notes in different ways and it has the ability to send the note via e-mail or any other messenger services.
 
 The notes have a context menu accessed by long-pressing the note title in the list view, and most screens have an options menu accessed by pressing the 'Menu' button on your Android device.
 
+||v1.05||Added ascending and descending sorting.||
 ||v1.04||Added sorting of notes list, exporting of to SD card.||
 ||v1.03||Fixed orientation change handling.||
 ||v1.02||Fixed crash in edit activity.||
@@ -15,6 +16,8 @@ The notes have a context menu accessed by long-pressing the note title in the li
 || ||Added preference to show delete confirmation.||
 || ||Added options menu to Title Edit, various other UI tweaks.||
 ||v1.0||Initial release.||
+
+This app is based on Google's tutorial  [http://developer.android.com/resources/tutorials/notepad/index.html NotePad] app.
 
 = Screenshots =
 
