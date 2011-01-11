@@ -24,7 +24,7 @@ public class Note implements BaseColumns, Parcelable {
 	public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.bander.note";
 
 	/** The default sort order. */
-	public static final String DEFAULT_SORT_ORDER = "_id DESC";
+	public static final String DEFAULT_SORT_ORDER = "_id";
 
 	/** Possible relevant sort orders. */
 	public static final String[] SORT_ORDERS = new String[] { 

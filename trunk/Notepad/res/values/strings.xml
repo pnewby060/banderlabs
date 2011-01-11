@@ -4,6 +4,8 @@
 	<string name="app_description">BanderLabs</string>
 	<string name="no_notes">No Notes found.\nPress \'Menu\' to Add a Note.</string>
 	
+	<string name="hint_longpress">Press and hold an item for extra options.</string>
+	
 	<string name="menu_insert">Add Note</string>
 	<string name="menu_search">Search</string>
 	<string name="menu_prefs">Preferences</string>
@@ -48,6 +50,9 @@
 	<string name="pref_listItemSizeSummaryOff">Showing small list items</string>
 	<string name="pref_sortOrder">Sort Order</string>
 	<string name="pref_sortOrderSummary">Sorting notes by %s</string>
+	<string name="pref_sortAscending">Sort Ascending</string>
+	<string name="pref_sortAscendingSummaryOn">Sorting in ascending order</string>
+	<string name="pref_sortAscendingSummaryOff">Sorting in descending order</string>
 	<string name="pref_textSize">Text Size</string>
 	<string name="pref_textSizeSummary">Using text size %s</string>
 	<string name="pref_deleteConfirmation">Confirm Deletes</string>

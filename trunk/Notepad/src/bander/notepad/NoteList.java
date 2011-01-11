@@ -19,6 +19,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 import bander.provider.Note;
 
 /** Main activity for Notepad, shows a list of notes. */
@@ -36,6 +37,8 @@ public class NoteList extends ListActivity {
 
 	private static final int COLUMN_INDEX_ID 		= 0;
 	private static final int COLUMN_INDEX_TITLE 	= 1;
+	
+	private static boolean GIVEN_HINT				= false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,11 @@ public class NoteList extends ListActivity {
 		super.onResume();
 
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		Boolean largeListItems = preferences.getBoolean("listItemSize", true);
+		boolean largeListItems = preferences.getBoolean("listItemSize", true);
 
 		int sortOrder = Integer.valueOf(preferences.getString("sortOrder", "1"));
-		String sorting = Note.SORT_ORDERS[sortOrder];
+		boolean sortAscending = preferences.getBoolean("sortAscending", true);
+		String sorting = Note.SORT_ORDERS[sortOrder] + ((sortAscending ? " ASC" : " DESC"));
 
 		Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null, sorting);
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
@@ -67,6 +71,11 @@ public class NoteList extends ListActivity {
 			new String[] { Note.TITLE }, new int[] { android.R.id.text1 }
 		);
 		setListAdapter(adapter);
+		
+		if ((GIVEN_HINT == false) && (adapter.getCount() == 1)) {
+			Toast.makeText(this, R.string.hint_longpress, Toast.LENGTH_LONG).show();
+			GIVEN_HINT = true;
+		}
 	}
 
 	@Override
@@ -185,7 +194,7 @@ public class NoteList extends ListActivity {
 	private void deleteNote(Context context, long id) {
 		final long noteId = id;
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-		Boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);
+		boolean deleteConfirmation = preferences.getBoolean("deleteConfirmation", true);
 		if (deleteConfirmation) {
 			AlertDialog alertDialog = new AlertDialog.Builder(context)
 				.setIcon(android.R.drawable.ic_dialog_alert)
