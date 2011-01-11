@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference 
+	<CheckBoxPreference android:key="listItemSize"
 		android:title="@string/pref_listItemSize"
 		android:summaryOff="@string/pref_listItemSizeSummaryOff" 
 		android:summaryOn="@string/pref_listItemSizeSummaryOn"
-		android:key="listItemSize"
 		android:defaultValue="true"
 	/>
 	<ListPreference android:key="sortOrder"
@@ -14,19 +13,23 @@
 		android:entries="@array/sortOrderEntries"
 		android:entryValues="@array/sortOrderValues"
 	/>
-	<ListPreference
+	<CheckBoxPreference android:key="sortAscending"
+		android:title="@string/pref_sortAscending"
+		android:summaryOff="@string/pref_sortAscendingSummaryOff" 
+		android:summaryOn="@string/pref_sortAscendingSummaryOn"
+		android:defaultValue="true"
+	/>
+	<ListPreference android:key="textSize"
 		android:title="@string/pref_textSize"
 		android:summary="@string/pref_textSizeSummary"
-		android:key="textSize"
 		android:defaultValue="16"
 		android:entries="@array/textSizeEntries"
 		android:entryValues="@array/textSizeValues" /> 
 	/>
-	<CheckBoxPreference 
+	<CheckBoxPreference android:key="deleteConfirmation"
 		android:title="@string/pref_deleteConfirmation"
 		android:summaryOff="@string/pref_deleteConfirmationSummaryOff" 
 		android:summaryOn="@string/pref_deleteConfirmationSummaryOn"
-		android:key="deleteConfirmation"
 		android:defaultValue="true"
 	/>
  	<PreferenceCategory android:title="@string/pref_notes">			
