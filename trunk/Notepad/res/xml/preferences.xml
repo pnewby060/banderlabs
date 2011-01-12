@@ -42,5 +42,14 @@
 				android:targetClass="bander.notepad.NoteExport"
 			/>
 		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/pref_import"
+			android:summary="@string/pref_importSummary">
+			<intent
+				android:targetPackage="bander.notepad"
+				android:action="bander.notepad.action.ACTION_IMPORT"
+				android:targetClass="bander.notepad.NoteImport"
+			/>
+		</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>

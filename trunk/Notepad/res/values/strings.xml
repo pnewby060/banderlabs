@@ -29,21 +29,32 @@
 	<string name="search_noresults">Could not find any notes containing \'%1$s\'.</string>
 	
 	<plurals name="search_results">
-		<item quantity="one">%d result for \'%s\' </item>
-		<item quantity="other">%d results for \'%s\' </item>
+		<item quantity="one">%1$d result for \'%2$s\' </item>
+		<item quantity="other">%1$d results for \'%2$s\' </item>
 	</plurals>
 
 	<string name="error_nomedia">Could not find any usable external storage. Check your SD card and try again.</string>
 	
 	<string name="dialog_export">Export Notes</string>
-	<string name="export_confirmation">Are you sure you want to export your notes? This will overwrite any existing files.</string>
+	<string name="export_confirmation">Are you sure you want to export your notes to the SD card? This will overwrite any existing files.</string>
 	
 	<string name="export_progress">Exporting notes...</string>
 	<plurals name="export_done">
-		<item quantity="one">Exported %d note to \'%s\'.</item>
-		<item quantity="other">Exported %d notes to \'%s\'.</item>
+		<item quantity="one">Exported %1$d note to \'%2$s\'.</item>
+		<item quantity="other">Exported %1$d notes to \'%2$s\'.</item>
 	</plurals>
 	<string name="export_failed">Export failed!</string>
+
+	<string name="dialog_import">Import Notes</string>
+	<string name="import_confirmation">Are you sure you want to import notes from your SD card? This will overwrite any existing notes.</string>
+
+	<string name="import_progress">Importing notes...</string>
+	<plurals name="import_done">
+		<item quantity="one">Imported %1$d note from \'%2$s\'.</item>
+		<item quantity="other">Imported %1$d notes from \'%2$s\'.</item>
+	</plurals>
+	<string name="import_failed">Import failed!</string>
+
 	
 	<string name="pref_listItemSize">Large List Items</string>
 	<string name="pref_listItemSizeSummaryOn">Showing large list items</string>
@@ -61,4 +72,6 @@
 	<string name="pref_notes">Notes</string>
 	<string name="pref_export">Export</string>
 	<string name="pref_exportSummary">Export your notes to the SD card</string>
+	<string name="pref_import">Import</string>
+	<string name="pref_importSummary">Import notes from your SD card</string>
 </resources>
