@@ -17,6 +17,7 @@ In addition, it has a built-in viewer/editor for text files.
 
 = Screenshots =
 
-http://lh3.ggpht.com/_cwLQAvN2y84/TF7-528RQHI/AAAAAAAAABY/aC9u-ENH9xo/FileMan01.png
-http://lh4.ggpht.com/_cwLQAvN2y84/TF7-5336zXI/AAAAAAAAABc/n8PyQFoGmlg/FileMan02.png
-http://lh3.ggpht.com/_cwLQAvN2y84/TF7-6FMUIBI/AAAAAAAAABg/-7Wz-PxCVOA/FileMan03.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TSzxJtFAruI/AAAAAAAAAHo/A4HLWcJ_6Lg/s288/Fileman00a.png
+http://lh4.ggpht.com/_cwLQAvN2y84/TSzxJz0QkUI/AAAAAAAAAHs/_my8ON1lw0A/s288/Fileman00b.png
+http://lh5.ggpht.com/_cwLQAvN2y84/TSzxKPTQ9qI/AAAAAAAAAHw/HeN6-sIrG2M/s288/fileman00c.png
+http://lh4.ggpht.com/_cwLQAvN2y84/TSzxKTKOECI/AAAAAAAAAH0/uobIx5_Ut7w/s288/fileman00d.png
