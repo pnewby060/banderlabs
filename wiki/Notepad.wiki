@@ -21,7 +21,8 @@ This app is based on Google's tutorial  [http://developer.android.com/resources/
 
 = Screenshots =
 
-http://lh4.ggpht.com/_cwLQAvN2y84/TSzt6dvS6nI/AAAAAAAAAG0/wXKgNmkEXp8/s288/notepad00a.png
-http://lh6.ggpht.com/_cwLQAvN2y84/TSzt6lwf6HI/AAAAAAAAAG4/6yvOKmlWTec/s288/notepad00b.png
-http://lh5.ggpht.com/_cwLQAvN2y84/TSzt6gJGSwI/AAAAAAAAAG8/kWz2OfzyNV8/s288/notepad00c.png
-http://lh5.ggpht.com/_cwLQAvN2y84/TSzt6yHZYwI/AAAAAAAAAHA/7b0BMepgc4o/s288/notepad00d.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TTiaq4qHrII/AAAAAAAAAIo/zDHas8RjWjQ/s288/notepad00a.png
+http://lh5.ggpht.com/_cwLQAvN2y84/TTiaqzsB5wI/AAAAAAAAAIs/ljkCxKvigtc/s288/notepad00b.png
+http://lh6.ggpht.com/_cwLQAvN2y84/TTiaq3H6KAI/AAAAAAAAAIw/IV4RSdbnOes/s288/notepad00c.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TTiarCaSd8I/AAAAAAAAAI0/OxcvQhF3Hvs/s288/notepad00d.png
+http://lh3.ggpht.com/_cwLQAvN2y84/TTiarU9J_wI/AAAAAAAAAI4/NzvYFcnqxr8/s288/notepad00e.png
