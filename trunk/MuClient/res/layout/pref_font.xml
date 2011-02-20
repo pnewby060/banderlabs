@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="0dip"
+>
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="5dip"
+		android:paddingTop="2dip" 
+		android:paddingBottom="2dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textStyle="bold"
+		android:textColor="#B8B8B8"
+		android:textColorHighlight="#B8B8B8"
+		android:background="#212121"
+		android:text="@string/header_font"
+	/>
+	<TextView
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"	
+		android:layout_marginLeft="6dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/edit_fontsize"
+	/>
+	<SeekBar android:id="@+id/edit_fontsize"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_margin="6dip"	
+	/>
+	
+	<TextView
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"	
+		android:layout_marginLeft="6dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/edit_fontforecolor"
+	/>
+	<Spinner android:id="@+id/edit_fontforecolor"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_margin="6dip"	
+		android:prompt="@string/edit_fontforecolor"
+	/>
+	
+	<TextView
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"	
+		android:layout_marginLeft="6dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/edit_fontbackcolor"
+	/>
+	<Spinner android:id="@+id/edit_fontbackcolor"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_margin="6dip"	
+		android:prompt="@string/edit_fontbackcolor"
+	/>
+	
+	<TextView
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"	
+		android:layout_marginLeft="6dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/edit_example"
+	/>
+	<TextView android:id="@+id/text_example"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"	
+		android:layout_margin="6dip"
+		android:padding="6dip"
+		android:typeface="monospace"
+		android:text="@string/text_example"
+	/>
+</LinearLayout>

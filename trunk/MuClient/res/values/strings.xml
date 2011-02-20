@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">MuClient</string>
+	<string name="app_description">BanderLabs</string>
+	
+	<string name="list_noitems">No Worlds found.\nPress \'Menu\' to Add a World.</string>
+	
+	<string name="hint_longpress">Press and hold an item for extra options.</string>
+	
+	<string name="menu_addworld">Add World</string>
+	<string name="menu_prefs">Preferences</string>
+
+	<string name="menu_addshortcut">Add Shortcut</string>
+
+	<string name="menu_connect">Connect</string>
+	<string name="menu_disconnect">Disconnect</string>
+	
+	<string name="context_editworld">Edit World</string>
+	<string name="context_copyworld">Copy World</string>
+	<string name="context_deleteworld">Delete World</string>
+	
+	<string name="context_editshortcut">Edit Shortcut</string>
+	<string name="context_deleteshortcut">Delete Shortcut</string>
+	
+	<string name="dialog_deleteworld">Delete World</string>
+	<string name="deleteworld_confirmation">Are you sure you want to delete this world?</string>
+	
+	<string name="dialog_deleteshortcut">Delete Shortcut</string>
+	<string name="deleteshortcut_confirmation">Are you sure you want to delete this shortcut?</string>
+	
+	<string name="edit_worldname">World Name</string>
+	<string name="edit_hostname">Address</string>
+	<string name="edit_port">Port</string>
+	<string name="edit_usessl">Use SSL</string>
+	<string name="edit_login">Login</string>
+	<string name="hint_login">connect username password</string>
+
+	<string name="header_shortcut">Shortcuts</string>
+	<string name="edit_shortcut">Shortcut</string>
+	
+	<string name="option_revert">Revert</string>
+	<string name="option_delete">Delete</string>
+	
+	<string name="dialog_confirm">Confirm</string>
+	<string name="dialog_cancel">Cancel</string>
+	
+	<string name="header_font">Font</string>
+	<string name="edit_fontsize">Size</string>
+	<string name="edit_fontforecolor">Foreground Color</string>
+	<string name="edit_fontbackcolor">Background Color</string>
+	<string name="edit_example">Example</string>
+	<string name="text_example">The Quick Brown Fox Jumped Over The Lazy Dogs.</string>
+	
+	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_font">Font</string>
+	<string name="pref_fontSummary">Text size and color</string>
+	<string name="pref_fullScreen">Full Screen</string>
+	<string name="pref_fullScreenSummaryOn">Notification bar hidden</string>
+	<string name="pref_fullScreenSummaryOff">Notification bar shown</string>
+
+	<string name="pref_category_behavior">Behavior</string>
+	<string name="pref_deleteConfirmation">Confirm Deletes</string>
+	<string name="pref_deleteConfirmationSummaryOn">Confirm when deleting a world</string>
+	<string name="pref_deleteConfirmationSummaryOff">Do not confirm when deleting a world</string>
+	<string name="pref_linkify">Link Web URLs</string>
+	<string name="pref_linkifySummaryOn">Make URLs into clickable links</string>
+	<string name="pref_linkifySummaryOff">Do not make URLs clickable</string>
+	
+	<string name="pref_category_features">Features</string>
+	<string name="pref_showShortcuts">Show Shortcuts Button</string>
+	<string name="pref_showShortcutsSummaryOn">Shortcut button shown</string>
+	<string name="pref_showShortcutsSummaryOff">Shortcut button hidden</string>
+	<string name="pref_editShortcuts">Shortcuts</string>
+	<string name="pref_editShortcutsSummary">List and edit available shortcuts</string>
+
+	<string name="pref_category_device">Device</string>
+	<string name="pref_keepScreen">Keep Screen Awake</string>
+	<string name="pref_keepScreenSummaryOn">Screen stays lit</string>
+	<string name="pref_keepScreenSummaryOff">Screen will turn off</string>
+	<string name="pref_keepWiFi">Keep WiFi Awake</string>
+	<string name="pref_keepWiFiSummaryOn">WiFi stays on</string>
+	<string name="pref_keepWiFiSummaryOff">WiFi will turn off</string>
+	
+</resources>

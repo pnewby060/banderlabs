@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+>
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="5dip"
+		android:paddingTop="2dip" 
+		android:paddingBottom="2dip"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textStyle="bold"
+		android:textColor="#B8B8B8"
+		android:textColorHighlight="#B8B8B8"
+		android:background="#212121"
+		android:text="@string/header_shortcut"
+	/>
+	<ListView android:id="@android:id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	/>
+	<TextView android:id="@android:id/empty"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:gravity="center"
+		android:text="@string/list_noitems"
+	/>
+</LinearLayout>
