@@ -2,36 +2,37 @@ package bander.fileman;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.text.format.DateFormat;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
@@ -51,14 +52,6 @@ public class Main extends ListActivity {
 	private static final int			DELETE_ID			= Menu.FIRST + 8;
 	private static final int			PROPERTIES_ID		= Menu.FIRST + 9;
 
-	private static final String 		ICON				= "icon";
-	private static final String 		NAME				= "name";
-	private static final String 		SIZE				= "size";
-	private static final String 		LENGTH				= "length";
-	private static final String			ISDIRECTORY			= "isDirectory";
-	private static final String 		LASTMODIFIED		= "lastModified";
-	private static final String 		TIMESTAMP			= "timestamp";
-
 	private static final String 		CURRENT_DIRECTORY	= "currentDirectory";
 
 	private enum Sorting				{ NONE, NAME, SIZE, DATE }
@@ -66,17 +59,21 @@ public class Main extends ListActivity {
 	private boolean						mDetailedView		= false;
 	private boolean						mHideDot			= false;
 
-	private List<Map<String,Object>>	mDirectoryEntries	= new ArrayList<Map<String,Object>>(); 
+	private List<DirectoryEntry>		mDirectoryEntries	= new ArrayList<DirectoryEntry>(); 
 	private File						mCurrentDirectory	= new File("/"); 
 
 	private int							mClipboardAction	= 0;
 	private File						mClipboardFile		= null;
 	
 	private boolean						mIsFilePicker		= false;
+	
+	private ListDirectoryTask 			mListDirectoryTask	= null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		
 		final Intent intent = getIntent();
 		final String action = intent.getAction();
@@ -131,7 +128,7 @@ public class Main extends ListActivity {
 
 		int index = (int) id;
 
-		String selectedFileName = (String) mDirectoryEntries.get(index).get(NAME);
+		String selectedFileName = (String) mDirectoryEntries.get(index).getName();
 		if (selectedFileName.equals(getString(R.string.dir_parent))) {
 			if (mCurrentDirectory.getParent() != null) {
 				listDirectory(mCurrentDirectory.getParentFile());
@@ -236,7 +233,7 @@ public class Main extends ListActivity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-		String selectedFileName = (String) mDirectoryEntries.get(info.position).get(NAME);
+		String selectedFileName = (String) mDirectoryEntries.get(info.position).getName();
 		
 		if (selectedFileName == getString(R.string.dir_parent)) return;
 		
@@ -253,7 +250,7 @@ public class Main extends ListActivity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		final String selectedFileName = (String) mDirectoryEntries.get(info.position).get(NAME);
+		final String selectedFileName = (String) mDirectoryEntries.get(info.position).getName();
 		final File clickedFile = getSelectedFile(selectedFileName);
 		switch (item.getItemId()) {
 			case VIEW_ID:
@@ -385,38 +382,111 @@ public class Main extends ListActivity {
 		return file.delete();
 	}
 	
-	/** Utility object to sort file list item objects. */
-	private class FileComparer implements Comparator<Map<String, Object>> {
-		private Sorting mSorting;
+	/** Utility object to sort DirectoryEntry objects. */
+	private class FileComparer implements Comparator<DirectoryEntry> {
+		private final Sorting mSorting;
 		
 		public FileComparer(Sorting sorting) {
 			mSorting = sorting;
 		}
 		
-		public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-			boolean d1 = (Boolean) o1.get(ISDIRECTORY);
-			boolean d2 = (Boolean) o2.get(ISDIRECTORY);
-			if ((d1 == true) && (d2 == false)) return -1;
-			if ((d1 == false) && (d2 == true)) return +1;
+		public int compare(DirectoryEntry o1, DirectoryEntry o2) {
+			if ((o1.isDirectory() == true) && (o2.isDirectory() == false)) return -1;
+			if ((o1.isDirectory() == false) && (o2.isDirectory() == true)) return +1;
 			
 			if (mSorting == Sorting.SIZE) {
-				long s1 = (Long) o1.get(LENGTH);
-				long s2 = (Long) o2.get(LENGTH);
-				if (s1 < s2) return -1;
-				if (s1 > s2) return +1;
+				if (o1.length() < o2.length()) return -1;
+				if (o1.length() > o2.length()) return +1;
 			}
 			if (mSorting == Sorting.DATE) {
-				long s1 = (Long) o1.get(TIMESTAMP);
-				long s2 = (Long) o2.get(TIMESTAMP);
-				if (s1 > s2) return -1;
-				if (s1 < s2) return +1;
+				if (o1.lastModified() > o2.lastModified()) return -1;
+				if (o1.lastModified() < o2.lastModified()) return +1;
 			}
-			String l1 = (String) o1.get(NAME);
-			String l2 = (String) o2.get(NAME);
-			return l1.compareToIgnoreCase(l2);
+			return o1.getName().compareToIgnoreCase(o2.getName());
 		}
 	}
+
+	/** Adapter to bind DirectoryEntry objects. */
+	private class EntryAdapter extends ArrayAdapter<DirectoryEntry> {
+		private final LayoutInflater mInflater;
+		private final int mResource;
+
+		public EntryAdapter(Context context, List<DirectoryEntry> objects, int resource) {
+			super(context, 0, objects);
+			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			mResource = resource;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view;
+			if (convertView == null) {
+				view = mInflater.inflate(mResource, null);
+			} else {
+				view = convertView;
+			}
+
+			DirectoryEntry item = this.getItem(position);
+
+			((ImageView) view.findViewById(R.id.file_icon)).setImageResource(item.getIcon());
+			((TextView) view.findViewById(R.id.file_name)).setText(item.getName());
+			((TextView) view.findViewById(R.id.file_size)).setText(item.size());
+			TextView modifiedView = (TextView) view.findViewById(R.id.file_lastmodified);
+			if (modifiedView != null)
+				modifiedView.setText(item.timeStamp());
+			return view;
+		}
+	}
+
+	/** AsyncTask to list contents of a directory. */
+	private class ListDirectoryTask extends AsyncTask<File, Void, Void> {
+		@Override
+		protected void onPreExecute() {
+			setTitle(mCurrentDirectory.getAbsolutePath());
+			setProgressBarIndeterminateVisibility(true);
+		}
+
+		@Override
+		protected Void doInBackground(File... params) {
+			File[] files = mCurrentDirectory.listFiles();
 	
+			mDirectoryEntries.clear();
+				
+			if (mCurrentDirectory.getParent() != null) {
+				DirectoryEntry parentDir = new DirectoryEntry(
+					getBaseContext(), R.drawable.parent, getString(R.string.dir_parent)
+				);
+				mDirectoryEntries.add(parentDir);
+			}
+			
+			for (File file : files) {
+				if (mHideDot && file.isHidden()) continue;
+				
+				DirectoryEntry entry = new DirectoryEntry(getBaseContext(), file);
+				mDirectoryEntries.add(entry);
+				
+				if (isCancelled()) return null;
+			}
+
+			if (mCurrentSorting != Sorting.NONE) {
+				Collections.sort(mDirectoryEntries, new FileComparer(mCurrentSorting));
+			}	
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			EntryAdapter adapter = new EntryAdapter(
+				getBaseContext(), mDirectoryEntries,
+				(mDetailedView) ? R.layout.list_item_2 : R.layout.list_item_1
+			);
+			setListAdapter(adapter);
+			
+			setProgressBarIndeterminateVisibility(false);
+			mListDirectoryTask = null;
+		}
+	}
+
 	/** Shows the specified directory in the list. The directory specified also
 	 * becomes the new current directory.
 	 * @param directory Directory to show.
@@ -436,65 +506,15 @@ public class Main extends ListActivity {
 			return;
 		}
 		
+		if (mListDirectoryTask != null) {
+			mListDirectoryTask.cancel(true);
+		}
 		mCurrentDirectory = directory;
-		setTitle(mCurrentDirectory.getAbsolutePath());
-		
-		mDirectoryEntries.clear();
-		
-		if (mCurrentDirectory.getParent() != null) {
-			Map<String, Object> parentDir = new HashMap<String, Object>();
-			parentDir.put(ISDIRECTORY, (Boolean) true);
-			parentDir.put(ICON, R.drawable.parent);
-			parentDir.put(NAME, getString(R.string.dir_parent));
-			parentDir.put(LENGTH, (Long) 0l);
-			parentDir.put(TIMESTAMP, (Long) Long.MAX_VALUE);
-			mDirectoryEntries.add(parentDir);
-		}
-		
-		for (File file : files) {
-			if (mHideDot && file.isHidden()) continue;
-			
-			Map<String, Object> entry = new HashMap<String, Object>();
-			entry.put(NAME, file.getName());
-			if (file.isDirectory()) {
-				entry.put(ISDIRECTORY, (Boolean) true);
-				entry.put(ICON, R.drawable.folder);
-				entry.put(LENGTH, (Long) 0l);
-			} else {
-				entry.put(ISDIRECTORY, (Boolean) false);
-				entry.put(ICON, MimeUtils.getIconResource(file.getName()));
-				entry.put(SIZE, formatSize(file.length()));
-				entry.put(LENGTH, (Long) file.length());
-			}
-			try {
-				if (file.lastModified() > 0) {
-					Date lastModified = new Date(file.lastModified());
-					java.text.DateFormat dateFormat = DateFormat.getDateFormat(getBaseContext());
-					java.text.DateFormat timeFormat = DateFormat.getTimeFormat(getBaseContext());
-					entry.put(LASTMODIFIED, 
-						dateFormat.format(lastModified) + " " + timeFormat.format(lastModified)
-					);
-				}
-				entry.put(TIMESTAMP, file.lastModified());
-			} catch (Exception e) {
-				// fail silently
-			}
-			mDirectoryEntries.add(entry);
-		}
-
-		if (mCurrentSorting != Sorting.NONE) {
-			Collections.sort(mDirectoryEntries, new FileComparer(mCurrentSorting));
-		}
-		
-		SimpleAdapter adapter = new SimpleAdapter(
-			this, mDirectoryEntries,
-			(mDetailedView) ? R.layout.list_item_2 : R.layout.list_item_1,
-			new String[] { ICON, NAME, SIZE, LASTMODIFIED }, 
-			new int[] { R.id.file_icon, R.id.file_name, R.id.file_size, R.id.file_perms }
-		);
-		setListAdapter(adapter);
+		setListAdapter(null);
+		mListDirectoryTask = new ListDirectoryTask();
+		mListDirectoryTask.execute(files);
 	}
-	
+
 	/** Returns a File object corresponding to a file in the current directory.
 	 * @param selectedFileName Name of the file selected.
 	 * @return The selected File.
@@ -506,39 +526,7 @@ public class Main extends ListActivity {
 			+ selectedFileName
 		);
 	}
-	
-	/** Format an integer representing a file size as a string.
-	 * @param fileSize The file size to format.
-	 * @return The formatted file size.
-	 */
-	private String formatSize(long fileSize) {
-		final long GIGABYTE		= (1024*1024*1024);
-		final long MEGABYTE		= (1024*1024);
-		final long KILOBYTE		= (1024);
-		
-		double size = (double) fileSize;
-		String suffix = "";
-		if (fileSize > GIGABYTE) {
-			size = size / GIGABYTE;
-			suffix = "G";
-		} else if (fileSize > MEGABYTE) {
-			size = size / MEGABYTE;
-			suffix = "M";
-		} else if (fileSize > KILOBYTE) {
-			size = size / KILOBYTE;
-			suffix = "K";
-		}
-		NumberFormat formatter = DecimalFormat.getNumberInstance();
-		if (size >= 100.0) {
-			formatter.setMaximumFractionDigits(0);
-		} else if (size >= 10.0) {
-			formatter.setMaximumFractionDigits(1);
-		} else {
-			formatter.setMaximumFractionDigits(2);
-		}
-		return formatter.format(size) + suffix;
-	}
-	
+
 	/** Displays an AlertDialog.
 	 * @param title The title of the AlertDialog.
 	 * @param message Message shown in the AlertDialog.
