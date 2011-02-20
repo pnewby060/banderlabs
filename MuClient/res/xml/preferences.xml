@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/pref_category_appearance">
+		<PreferenceScreen
+			android:title="@string/pref_font"
+			android:summary="@string/pref_fontSummary">
+			<intent
+				android:targetPackage="bander.muclient"
+				android:action="android.intent.action.EDIT"
+				android:targetClass="bander.muclient.activity.PrefFont"
+			/>
+		</PreferenceScreen>
+		<CheckBoxPreference android:key="fullScreen"
+			android:title="@string/pref_fullScreen"
+			android:summaryOff="@string/pref_fullScreenSummaryOff" 
+			android:summaryOn="@string/pref_fullScreenSummaryOn"
+			android:defaultValue="false"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/pref_category_behavior">
+		<CheckBoxPreference android:key="deleteConfirmation"
+			android:title="@string/pref_deleteConfirmation"
+			android:summaryOff="@string/pref_deleteConfirmationSummaryOff" 
+			android:summaryOn="@string/pref_deleteConfirmationSummaryOn"
+			android:defaultValue="true"
+		/>
+		<CheckBoxPreference android:key="linkify"
+			android:title="@string/pref_linkify"
+			android:summaryOff="@string/pref_linkifySummaryOff" 
+			android:summaryOn="@string/pref_linkifySummaryOn"
+			android:defaultValue="true"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/pref_category_features">
+		<CheckBoxPreference android:key="showShortcuts"
+			android:title="@string/pref_showShortcuts"
+			android:summaryOff="@string/pref_showShortcutsSummaryOff" 
+			android:summaryOn="@string/pref_showShortcutsSummaryOn"
+			android:defaultValue="false"
+		/>
+		<PreferenceScreen
+			android:title="@string/pref_editShortcuts"
+			android:summary="@string/pref_editShortcutsSummary">
+			<intent
+				android:targetPackage="bander.muclient"
+				android:action="bander.muclient.action.ACTION_SHORTCUTS"
+				android:targetClass="bander.muclient.activity.ShortcutList"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/pref_category_device">
+		<CheckBoxPreference android:key="keepScreen"
+			android:title="@string/pref_keepScreen"
+			android:summaryOff="@string/pref_keepScreenSummaryOff" 
+			android:summaryOn="@string/pref_keepScreenSummaryOn"
+			android:defaultValue="false"
+		/>
+		<CheckBoxPreference android:key="keepWiFi"
+			android:title="@string/pref_keepWiFi"
+			android:summaryOff="@string/pref_keepWiFiSummaryOff" 
+			android:summaryOn="@string/pref_keepWiFiSummaryOn"
+			android:defaultValue="false"
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>

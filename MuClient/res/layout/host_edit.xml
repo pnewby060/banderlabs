@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+>
+	<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="0dip"
+		android:layout_weight="1"
+		android:layout_marginBottom="48dip"
+		android:fillViewport="true"
+	>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+		>
+			<TextView
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="6dip"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="@string/edit_worldname"
+			/>
+			<EditText android:id="@+id/edit_worldname" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:inputType="text"
+				android:capitalize="words"
+			/>
+			
+			<TextView
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="6dip"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="@string/edit_hostname"
+			/>
+			<EditText android:id="@+id/edit_hostname" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:inputType="textUri"
+			/>
+			
+			<TextView
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="6dip"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="@string/edit_port"
+			/>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+			>
+				<EditText android:id="@+id/edit_port" 
+					android:layout_width="0dip" 
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:inputType="number"
+				/>			
+				<CheckBox android:id="@+id/edit_usessl"
+					android:layout_width="0dip"
+					android:layout_height="wrap_content"
+					android:layout_weight="1"
+					android:layout_marginLeft="6dip"
+					android:text="@string/edit_usessl"
+				/>
+			</LinearLayout>
+			
+			<TextView
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="6dip"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:text="@string/edit_login"
+			/>
+			<EditText android:id="@+id/edit_login" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:inputType="text"
+				android:hint="@string/hint_login"
+			/>
+			
+		</LinearLayout>	
+	</ScrollView>
+	
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_marginTop="-48dip"
+	>
+		<Button android:id="@+id/button_confirm"
+			android:text="@string/dialog_confirm" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+		/>
+		<Button android:id="@+id/button_cancel" 
+			android:text="@string/dialog_cancel" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+		/>
+	</LinearLayout>
+
+</LinearLayout>
