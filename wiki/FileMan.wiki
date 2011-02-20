@@ -6,6 +6,7 @@ FileMan is a simple file manager for your SD card. It allows you to browse the f
 
 In addition, it has a built-in viewer/editor for text files.
 
+||v1.05||Massive speedup reading large directories.||
 ||v1.04||Now works as a system-wide file picker, eg. in the Gmail app.||
 ||v1.03||Better readability on HDPI devices.||
 || ||Now defaults to SD card root, if present.||
