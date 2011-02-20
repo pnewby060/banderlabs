@@ -26,7 +26,7 @@
 		android:layout_alignLeft="@id/file_name"
 		android:paddingLeft="6dip"
 	/>
-	<TextView android:id="@+id/file_perms"
+	<TextView android:id="@+id/file_lastmodified"
 		android:typeface="monospace"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
