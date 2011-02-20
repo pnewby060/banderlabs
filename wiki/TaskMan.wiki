@@ -11,5 +11,5 @@ TaskMan is a simple utility that allows you to view the tasks running on your An
 
 = Screenshots =
 
-http://lh3.ggpht.com/_cwLQAvN2y84/TF8CNfrO6uI/AAAAAAAAAB4/ywkCHzQ1nTs/TaskMan01.png
-http://lh3.ggpht.com/_cwLQAvN2y84/TF8CNoXpvRI/AAAAAAAAAB8/r2WuOG08oW0/TaskMan02.png
+https://lh3.googleusercontent.com/_cwLQAvN2y84/TWFPGXgsfPI/AAAAAAAAAKs/sLfWnxlEVmQ/s288/TaskMan00a.png
+https://lh3.googleusercontent.com/_cwLQAvN2y84/TWFPGT1UV-I/AAAAAAAAAKw/zPyYDxfFGSI/s288/TaskMan00b.png
