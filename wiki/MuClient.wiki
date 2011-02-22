@@ -1,0 +1,16 @@
+#MuClient - Simple client for MOOs, MUCKs and MUSHes.
+
+= Introduction =
+
+MuClient is a simple client for MOOs, MUCKs, MUSHes and other talker-like services. Supports SSL, multiple sessions, adjustable text size and color and user-configurable shortcuts.
+
+(However, for MUDs I'd recommend you use a full-blown telnet client like AndroMud.)
+
+|| v1.0 || Initial release. ||
+
+= Screenshots =
+
+https://lh5.googleusercontent.com/_cwLQAvN2y84/TWQnwV6j1eI/AAAAAAAAALY/MjunR9D_XpM/s288/muclient00a.png
+https://lh3.googleusercontent.com/_cwLQAvN2y84/TWQnwgZQjpI/AAAAAAAAALc/xVvSjT2n9gc/s288/muclient00b.png
+https://lh4.googleusercontent.com/_cwLQAvN2y84/TWQnwl0NzhI/AAAAAAAAALg/StXC_773gBw/s288/muclient00c.png
+https://lh4.googleusercontent.com/_cwLQAvN2y84/TWQnw8GgWfI/AAAAAAAAALo/AN9Z6U3nk5I/s288/muclient00e.png
