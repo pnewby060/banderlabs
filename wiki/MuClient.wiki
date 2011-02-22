@@ -1,4 +1,4 @@
-#MuClient - Simple client for MOOs, MUCKs and MUSHes.
+#summary MuClient - Simple client for MOOs, MUCKs and MUSHes.
 
 = Introduction =
 
