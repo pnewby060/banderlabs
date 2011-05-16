@@ -18,6 +18,7 @@ public class MimeUtils {
 			if (ext.equalsIgnoreCase("mp3")) return "audio/mpeg";
 			if (ext.equalsIgnoreCase("aac")) return "audio/aac";
 			if (ext.equalsIgnoreCase("wav")) return "audio/wav";
+			if (ext.equalsIgnoreCase("ogg")) return "audio/ogg";
 			if (ext.equalsIgnoreCase("mid")) return "audio/midi";
 			if (ext.equalsIgnoreCase("midi")) return "audio/midi";
 			if (ext.equalsIgnoreCase("wma")) return "audio/x-ms-wma";
@@ -64,6 +65,7 @@ public class MimeUtils {
 			if (ext.equalsIgnoreCase("mp3")) return R.drawable.audio;
 			if (ext.equalsIgnoreCase("aac")) return R.drawable.audio;
 			if (ext.equalsIgnoreCase("wav")) return R.drawable.audio;
+			if (ext.equalsIgnoreCase("ogg")) return R.drawable.audio;
 			if (ext.equalsIgnoreCase("mid")) return R.drawable.audio;
 			if (ext.equalsIgnoreCase("midi")) return R.drawable.audio;
 			if (ext.equalsIgnoreCase("wma")) return R.drawable.audio;
