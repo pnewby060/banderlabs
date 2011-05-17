@@ -1,4 +1,4 @@
-package bander.fileman;
+package bander.fileman.util;
 
 import java.io.BufferedInputStream;
 import java.io.File;

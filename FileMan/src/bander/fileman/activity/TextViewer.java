@@ -1,4 +1,4 @@
-package bander.fileman;
+package bander.fileman.activity;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+import bander.fileman.R;
+import bander.fileman.util.FileUtils;
 
 /** Secondary activity of FileMan, shows the contents of a text file and allows editing. */
 public class TextViewer extends Activity {

@@ -1,4 +1,4 @@
-package bander.fileman;
+package bander.fileman.activity;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,9 +35,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import bander.fileman.DirectoryEntry;
+import bander.fileman.R;
+import bander.fileman.util.FileUtils;
+import bander.fileman.util.MimeUtils;
 
 /** Main activity for FileMan, shows the contents of a single file-system directory. */
-public class Main extends ListActivity {
+public class FileList extends ListActivity {
 	private static final int			ACTIVITY_PROPERTIES	= 0;	
 
 	private static final int			REFRESH_ID 			= Menu.FIRST + 0;
@@ -316,7 +320,6 @@ public class Main extends ListActivity {
 				}
 			}
 		}
-		listDirectory(mCurrentDirectory);
 	}
 	
 	@Override

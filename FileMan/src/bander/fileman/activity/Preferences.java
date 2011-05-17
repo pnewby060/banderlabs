@@ -1,9 +1,10 @@
-package bander.fileman;
+package bander.fileman.activity;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import bander.fileman.R;
 
 /** Preferences activity for FileMan. */
 public class Preferences extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
