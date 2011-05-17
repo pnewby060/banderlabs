@@ -9,6 +9,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import bander.fileman.util.MimeUtils;
 
 /** A directory entry. */
 public class DirectoryEntry {

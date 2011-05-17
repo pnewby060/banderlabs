@@ -1,4 +1,6 @@
-package bander.fileman;
+package bander.fileman.util;
+
+import bander.fileman.R;
 
 /** Utility class containing MIME type-related helper functions. */
 public class MimeUtils {

@@ -1,4 +1,4 @@
-package bander.fileman;
+package bander.fileman.activity;
 
 import java.io.File;
 import java.text.Format;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import bander.fileman.R;
+import bander.fileman.util.MimeUtils;
 
 /** Secondary activity for FileMan, displays properties of a single file 
   * and allows editing of the file name.
