@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,14 +28,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 /** Main activity for FileMan, shows the contents of a single file-system directory. */
 public class Main extends ListActivity {
@@ -68,6 +68,7 @@ public class Main extends ListActivity {
 	private boolean						mIsFilePicker		= false;
 	
 	private ListDirectoryTask 			mListDirectoryTask	= null;
+	private UpdateEntriesTask 			mUpdateEntriesTask	= null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,6 +119,8 @@ public class Main extends ListActivity {
 		int sortOrder = Integer.valueOf(preferences.getString("sortOrder", "1"));
 		mCurrentSorting = Sorting.values()[sortOrder];
 		mHideDot = preferences.getBoolean("hideDot", false);
+		
+		//DirectoryEntry.setFormat(getBaseContext());
 
 		listDirectory(mCurrentDirectory);
 	}
@@ -418,38 +421,73 @@ public class Main extends ListActivity {
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View view;
-			if (convertView == null) {
+		public View getView(int position, View view, ViewGroup parent) {
+			if (view == null) {
 				view = mInflater.inflate(mResource, null);
-			} else {
-				view = convertView;
 			}
-
-			DirectoryEntry item = this.getItem(position);
-
-			((ImageView) view.findViewById(R.id.file_icon)).setImageResource(item.getIcon());
-			((TextView) view.findViewById(R.id.file_name)).setText(item.getName());
-			((TextView) view.findViewById(R.id.file_size)).setText(item.size());
+			
+			DirectoryEntry entry = this.getItem(position);
+	
+			view.setTag(entry.getName());
+			entry.setView(view);
+			
+			((ImageView) view.findViewById(R.id.file_icon)).setImageDrawable(entry.getDrawable());
+			((TextView) view.findViewById(R.id.file_name)).setText(entry.getName());
+			((TextView) view.findViewById(R.id.file_size)).setText(entry.size());
 			TextView modifiedView = (TextView) view.findViewById(R.id.file_lastmodified);
-			if (modifiedView != null)
-				modifiedView.setText(item.timeStamp());
+			if (modifiedView != null) modifiedView.setText(entry.timeStamp());
+			
 			return view;
 		}
 	}
 
+	/** AsyncTask to update the directory entries. */
+	private class UpdateEntriesTask extends AsyncTask<Void, DirectoryEntry, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			List<DirectoryEntry> directoryEntries = mDirectoryEntries;
+			for (DirectoryEntry entry : directoryEntries) {
+				entry.update();
+				publishProgress(entry);
+				if (isCancelled()) return null;
+			}
+			return null;
+		}
+		@Override
+		protected void onProgressUpdate(DirectoryEntry... progress) {
+			DirectoryEntry entry = progress[0];
+			View view = entry.getView();
+			if (view != null) {
+				if (entry.getName().equals(view.getTag())) {
+					EntryAdapter adapter = (EntryAdapter) getListAdapter();
+					if (adapter != null) adapter.notifyDataSetChanged();
+				}
+			}
+		}
+		@Override
+		protected void onPostExecute(Void param) {
+			mUpdateEntriesTask = null;
+		}
+	}
+
 	/** AsyncTask to list contents of a directory. */
-	private class ListDirectoryTask extends AsyncTask<File, Void, Void> {
+	private class ListDirectoryTask extends AsyncTask<File, Void, List<DirectoryEntry>> {
+
 		@Override
 		protected void onPreExecute() {
+			if (mUpdateEntriesTask != null) {
+				mUpdateEntriesTask.cancel(true);
+			}
+			
 			setTitle(mCurrentDirectory.getAbsolutePath());
 			setProgressBarIndeterminateVisibility(true);
 		}
 
 		@Override
-		protected Void doInBackground(File... params) {
-			File[] files = mCurrentDirectory.listFiles();
-	
+		protected List<DirectoryEntry> doInBackground(File... params) {
+			File[] files = params;
+			
 			mDirectoryEntries.clear();
 				
 			if (mCurrentDirectory.getParent() != null) {
@@ -471,19 +509,23 @@ public class Main extends ListActivity {
 			if (mCurrentSorting != Sorting.NONE) {
 				Collections.sort(mDirectoryEntries, new FileComparer(mCurrentSorting));
 			}	
-			return null;
+			return mDirectoryEntries;
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(List<DirectoryEntry> entries) {
 			EntryAdapter adapter = new EntryAdapter(
-				getBaseContext(), mDirectoryEntries,
+				getBaseContext(), entries,
 				(mDetailedView) ? R.layout.list_item_2 : R.layout.list_item_1
 			);
 			setListAdapter(adapter);
 			
 			setProgressBarIndeterminateVisibility(false);
 			mListDirectoryTask = null;
+			
+			// Chain the update task.
+			mUpdateEntriesTask = new UpdateEntriesTask();
+			mUpdateEntriesTask.execute();
 		}
 	}
 
