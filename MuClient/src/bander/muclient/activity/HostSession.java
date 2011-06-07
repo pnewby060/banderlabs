@@ -18,7 +18,6 @@ import android.os.Handler.Callback;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.text.util.Linkify;
@@ -35,6 +34,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import bander.muclient.Main;
 import bander.muclient.R;
+import bander.muclient.net.AnsiParser;
 import bander.muclient.net.TextConnection;
 import bander.muclient.view.SizingScrollView;
 import bander.muclient.view.SizingScrollView.OnSizeListener;
@@ -65,6 +65,8 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 	
 	private boolean mLinkify = true;
 	private String[] mShortcuts;
+	
+	private AnsiParser mAnsiParser = new AnsiParser();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -307,13 +309,15 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 				appendOutput((String) msg.obj);
 				break;
 			case TextConnection.MESSAGE_LINE:
+				String text = (String) msg.obj;
+				
+				Spannable result = mAnsiParser.addColors(text);
+				
 				if (mLinkify) {
-					Spannable spannable = new SpannableString((String) msg.obj);
-					Linkify.addLinks(spannable, Linkify.WEB_URLS);
-					appendOutput(spannable);
-				} else {
-					appendOutput((String) msg.obj);
+					Linkify.addLinks(result, Linkify.WEB_URLS);
 				}
+				
+				appendOutput(result);
 				break;
 		}
 		return true;
