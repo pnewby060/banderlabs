@@ -89,17 +89,29 @@ public class HostEdit extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-        
-		if (mUri != null) {
-			ContentValues values = mOriginalHost.getContentValues();
-
-			values.put(Host.WORLD_NAME, getTextView(R.id.edit_worldname));
-			values.put(Host.HOST_NAME, getTextView(R.id.edit_hostname));
-			values.put(Host.PORT, getTextView(R.id.edit_port));
-			values.put(Host.USE_SSL, getCheckBox(R.id.edit_usessl) ? 1 : 0);
-			values.put(Host.POST_CONNECT, getTextView(R.id.edit_login));
-
-			getContentResolver().update(mUri, values, null, null);
+		
+		if (mUri != null) {	
+			final String worldName = getTextView(R.id.edit_worldname);
+			final String hostName = getTextView(R.id.edit_hostname);
+			final String port = getTextView(R.id.edit_port);
+			final boolean isIncomplete =
+				((worldName.length() == 0) || (hostName.length() == 0) || (port.length() == 0));
+			
+			if ((mState == STATE_INSERT) && isFinishing() && isIncomplete) {
+				// If inserting and finishing and no text then delete the host.
+				setResult(RESULT_CANCELED);
+				deleteHost();
+			} else {
+				ContentValues values = mOriginalHost.getContentValues();
+				
+				values.put(Host.WORLD_NAME, worldName);
+				values.put(Host.HOST_NAME, hostName);
+				values.put(Host.PORT, port);
+				values.put(Host.USE_SSL, getCheckBox(R.id.edit_usessl) ? 1 : 0);
+				values.put(Host.POST_CONNECT, getTextView(R.id.edit_login));
+				
+				getContentResolver().update(mUri, values, null, null);
+			}
 		}
 	}
 
