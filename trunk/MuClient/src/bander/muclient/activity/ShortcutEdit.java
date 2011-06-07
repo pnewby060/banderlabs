@@ -87,13 +87,22 @@ public class ShortcutEdit extends Activity implements OnClickListener {
 	@Override
 	protected void onPause() {
 		super.onPause();
-        
+		
 		if (mUri != null) {
-			ContentValues values = mOriginalShortcut.getContentValues();
-
-			values.put(Shortcut.SHORTCUT, getTextView(R.id.edit_shortcut));
-	
-			getContentResolver().update(mUri, values, null, null);
+			final String shortcut = getTextView(R.id.edit_shortcut);
+			final boolean isIncomplete = (shortcut.length() == 0);
+			
+			if ((mState == STATE_INSERT) && isFinishing() && isIncomplete) {
+				// If inserting and finishing and no text then delete the shortcut.
+				setResult(RESULT_CANCELED);
+				deleteShortcut();
+			} else {
+				ContentValues values = mOriginalShortcut.getContentValues();
+				
+				values.put(Shortcut.SHORTCUT, shortcut);
+				
+				getContentResolver().update(mUri, values, null, null);
+			}
 		}
 	}
 
