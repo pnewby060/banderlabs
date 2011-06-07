@@ -14,8 +14,8 @@ import android.net.Uri;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Handler.Callback;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,9 +26,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +50,8 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 	
 	private static final int DIALOG_SHORTCUTS	= 1;
 
+	private static final int TYPE_TEXT_FLAG_NO_SUGGESTIONS = 0x00080000;
+	
 	private final Handler mHandler = new Handler(this);
 
 	private Uri mUri;
@@ -129,6 +131,18 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 		
 		boolean showShortcuts = preferences.getBoolean("showShortcuts", false);
 		mShortcutButton.setVisibility(showShortcuts ? View.VISIBLE : View.GONE);
+		
+		// TYPE_TEXT_FLAG_NO_SUGGESTIONS introduced in Android 2.0, API 5
+		if (android.os.Build.VERSION.SDK_INT > 4) {
+			boolean noSuggestions = preferences.getBoolean("noSuggestions", false);
+			int inputType = mInputEdit.getInputType();
+			if (noSuggestions) {
+				inputType |= (TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+			} else {
+				inputType &= (~TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+			}
+			mInputEdit.setInputType(inputType);
+		}
 		
 		boolean keepWifi = preferences.getBoolean("keepWifi", false);
 		WifiLock wifiLock = muClient.getWifiLock();
