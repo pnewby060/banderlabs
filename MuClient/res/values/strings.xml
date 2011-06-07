@@ -65,7 +65,11 @@
 	<string name="pref_linkify">Link Web URLs</string>
 	<string name="pref_linkifySummaryOn">Make URLs into clickable links</string>
 	<string name="pref_linkifySummaryOff">Do not make URLs clickable</string>
-	
+	<string name="pref_noSuggestions">Hide Suggestions</string>
+	<string name="pref_noSuggestionsSummaryOn">Show no suggestions when typing</string>
+	<string name="pref_noSuggestionsSummaryOff">Show suggestions when typing</string>
+	<string name="pref_noSuggestionsDisabled">Requires Android 2.0 or later</string>
+
 	<string name="pref_category_features">Features</string>
 	<string name="pref_showShortcuts">Show Shortcuts Button</string>
 	<string name="pref_showShortcutsSummaryOn">Shortcut button shown</string>

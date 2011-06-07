@@ -31,6 +31,12 @@
 			android:summaryOn="@string/pref_linkifySummaryOn"
 			android:defaultValue="true"
 		/>
+		<CheckBoxPreference android:key="noSuggestions"
+			android:title="@string/pref_noSuggestions"
+			android:summaryOff="@string/pref_noSuggestionsSummaryOff" 
+			android:summaryOn="@string/pref_noSuggestionsSummaryOn"
+			android:defaultValue="false"
+		/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/pref_category_features">
