@@ -68,7 +68,7 @@ public class ShortcutEdit extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		
-		Cursor cursor = managedQuery(mUri, Shortcut.PROJECTION, null, null, null);
+		Cursor cursor = getContentResolver().query(mUri, Shortcut.PROJECTION, null, null, null);
 		Shortcut shortcut = Shortcut.fromCursor(cursor);
 		cursor.close();
 		

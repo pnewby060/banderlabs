@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -155,15 +156,17 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 			wifiLock.release();
 		}
 		
+		ContentResolver resolver = getContentResolver();
+		
 		ArrayList<String> shortcuts = new ArrayList<String>();
-		Cursor cursor = managedQuery(Shortcut.CONTENT_URI, Shortcut.PROJECTION, null, null, null);
+		Cursor cursor = resolver.query(Shortcut.CONTENT_URI, Shortcut.PROJECTION, null, null, null);
 		while (cursor.moveToNext()) {
 			shortcuts.add(cursor.getString(cursor.getColumnIndexOrThrow(Shortcut.SHORTCUT)));
 		}
 		cursor.close();
 		mShortcuts = shortcuts.toArray(new String[0]);
 		
-		cursor = managedQuery(mUri, Host.PROJECTION, null, null, null);
+		cursor = resolver.query(mUri, Host.PROJECTION, null, null, null);
 		Host host = Host.fromCursor(cursor);
 		cursor.close();
 		
@@ -226,7 +229,7 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 				startActivity(new Intent(Intent.ACTION_EDIT, mUri));
 				return true;
 			case MENU_CONNECT:
-				Cursor cursor = managedQuery(mUri, Host.PROJECTION, null, null, null);
+				Cursor cursor = getContentResolver().query(mUri, Host.PROJECTION, null, null, null);
 				Host host = Host.fromCursor(cursor);
 				cursor.close();
 				this.setTitle(host.getWorldName());
