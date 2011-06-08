@@ -33,6 +33,8 @@ public class AnsiParser {
 		private int[] mParams		= new int[3];
 		private int mParamIndex		= -1;
 		
+		/** Returns the input text. */
+		public String text() 		{ return mText; }
 		/** Returns the index of the first character of the ANSI escape sequence. */
 		public int start() 			{ return mStart; }
 		/** Returns the index of the first character following the ANSI escape sequence. */
@@ -55,7 +57,7 @@ public class AnsiParser {
 		}
 		
 		/** Returns the next occurrence of an ANSI escape sequence in the input.
-		 * @return true if (and only if) a escape sequence has been found. 
+		 * @return true if an escape sequence has been found. 
 		 */
 		public boolean find() {
 			while (mPos < mText.length()) {
@@ -98,12 +100,14 @@ public class AnsiParser {
 						break;
 				}
 			}
-			if (mState != STATE_CSI1) {
-				// We have a partial. Currently partially unhandled, in that
-				// the Matcher will remember its state, but the partial will
-				// be emitted into the parse result.
-			}
 			return false;
+		}
+		
+		/** Returns whether a partial ANSI escape sequence has been detected.
+		 * @return true if a partial escape sequence has been found.
+		 */
+		public boolean foundPartial() {
+			return (mState != STATE_CSI1);
 		}
 		
 	}
@@ -115,7 +119,12 @@ public class AnsiParser {
 	 */
 	public Spannable addColors(String text) {
 		SpannableStringBuilder builder = new SpannableStringBuilder();
-	
+		
+		if (mMatcher.foundPartial()) {
+			String partial = new String(mMatcher.text().substring(mMatcher.start()));
+			text = partial + text;
+		}
+		
 		mMatcher.match(text);
 		int pos = 0;
 		while (mMatcher.find()) {
@@ -142,11 +151,13 @@ public class AnsiParser {
 			}
 			pos = mMatcher.end();
 		}
-		if (pos < text.length()) {
-			Spannable postfix = new SpannableString(text.substring(pos, text.length()));
-			postfix.setSpan(mForegroundColorSpan, 0, postfix.length(), 0);
-			postfix.setSpan(mBackgroundColorSpan, 0, postfix.length(), 0);
-			builder.append(postfix);
+		if (mMatcher.foundPartial() == false) {
+			if (pos < text.length()) {
+				Spannable postfix = new SpannableString(text.substring(pos));
+				postfix.setSpan(mForegroundColorSpan, 0, postfix.length(), 0);
+				postfix.setSpan(mBackgroundColorSpan, 0, postfix.length(), 0);
+				builder.append(postfix);
+			}
 		}
 		return builder;
 	}
