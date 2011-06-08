@@ -70,7 +70,7 @@ public class HostEdit extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 		
-		Cursor cursor = managedQuery(mUri, Host.PROJECTION, null, null, null);
+		Cursor cursor = getContentResolver().query(mUri, Host.PROJECTION, null, null, null);
 		Host host = Host.fromCursor(cursor);
 		cursor.close();
 		
