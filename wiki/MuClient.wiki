@@ -6,11 +6,12 @@ MuClient is a simple client for MOOs, MUCKs, MUSHes and other talker-like servic
 
 (However, for MUDs I'd recommend you use a full-blown telnet client like AndroMud.)
 
+|| v1.01 || ANSI color support, hide suggestions, bug fixes. ||
 || v1.0 || Initial release. ||
 
 = Screenshots =
 
-https://lh5.googleusercontent.com/_cwLQAvN2y84/TWQnwV6j1eI/AAAAAAAAALY/MjunR9D_XpM/s288/muclient00a.png
-https://lh3.googleusercontent.com/_cwLQAvN2y84/TWQnwgZQjpI/AAAAAAAAALc/xVvSjT2n9gc/s288/muclient00b.png
-https://lh4.googleusercontent.com/_cwLQAvN2y84/TWQnwl0NzhI/AAAAAAAAALg/StXC_773gBw/s288/muclient00c.png
-https://lh4.googleusercontent.com/_cwLQAvN2y84/TWQnw8GgWfI/AAAAAAAAALo/AN9Z6U3nk5I/s288/muclient00e.png
+https://lh6.googleusercontent.com/-_Wz8UCwHOcg/TfkARTGX7CI/AAAAAAAAAMk/w6frfnPPuks/s288/muclient00a.png
+https://lh5.googleusercontent.com/-614uu315fio/TfkARbOCNdI/AAAAAAAAAMo/Z4tw-i1FTys/s288/muclient00b.png
+https://lh3.googleusercontent.com/-BBEmx_kYmjM/TfkARnwrf5I/AAAAAAAAAMs/cn9ePtSIm48/s288/muclient00c.png
+https://lh6.googleusercontent.com/-Ad4VYjvKYHM/TfkARz2lFGI/AAAAAAAAAM0/OEWmMWcgSeQ/s288/muclient00e.png
