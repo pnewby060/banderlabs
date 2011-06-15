@@ -138,7 +138,8 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 		mShortcutButton.setVisibility(showShortcuts ? View.VISIBLE : View.GONE);
 		
 		// TYPE_TEXT_FLAG_NO_SUGGESTIONS introduced in Android 2.0, API 5
-		if (android.os.Build.VERSION.SDK_INT > 4) {
+		int sdkVersion = Integer.parseInt(android.os.Build.VERSION.SDK);
+		if (sdkVersion > 4) {
 			boolean noSuggestions = preferences.getBoolean("noSuggestions", false);
 			int inputType = mInputEdit.getInputType();
 			if (noSuggestions) {

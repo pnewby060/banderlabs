@@ -17,7 +17,8 @@ public class Preferences extends PreferenceActivity {
 		
 		// TYPE_TEXT_FLAG_NO_SUGGESTIONS introduced in Android 2.0, API 5
 		CheckBoxPreference noSuggestionsPreference = (CheckBoxPreference) findPreference(KEY_NOSUGGESTIONS);
-		boolean enabled = (android.os.Build.VERSION.SDK_INT > 4);
+		int sdkVersion = Integer.parseInt(android.os.Build.VERSION.SDK);
+		boolean enabled = (sdkVersion > 4);
 		noSuggestionsPreference.setEnabled(enabled);
 		if (enabled == false) noSuggestionsPreference.setSummaryOff(R.string.pref_noSuggestionsDisabled);
 	}
