@@ -123,10 +123,10 @@ public class TextConnection extends Thread {
 
 			appendOutput("> Connecting to " + address.getAddress().getHostAddress() + "...\n", MESSAGE_SYSTEM);
 						
-            SocketFactory socketFactory;
+			SocketFactory socketFactory;
 			if (mUseSsl) {
 				KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-		        trustStore.load(null, null);
+				trustStore.load(null, null);
 				SSLSocketFactory sslSocketFactory = new TrustingSocketFactory(trustStore);
 				sslSocketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 				socketFactory = sslSocketFactory;
@@ -159,21 +159,21 @@ public class TextConnection extends Thread {
 			
 			mSocket.setSoTimeout(500);
 			CharArrayBuffer charBuffer = new CharArrayBuffer(1024);
-			while (!mSocket.isClosed()) {
+			while ((!mSocket.isClosed()) && (!interrupted())) {
 				try {
 					while ((inputBuffer.readLine(charBuffer)) != -1) {
 						if (!charBuffer.isEmpty()) {
 							appendOutput(charBuffer.toString() + "\n", MESSAGE_LINE);
 							charBuffer.clear();
 						}
-			            yield();
+						yield();
 					}
 					break;
-				} catch (InterruptedIOException e) { }
+				} catch (InterruptedIOException e) { yield(); }
 			}
-            
+			
 			appendOutput("> Disconnected.\n", MESSAGE_SYSTEM);
-			mSocket.close();
+			disconnect();
 		} catch (IOException e) {
 			appendOutput("> error: " + e.getMessage() + "\n", MESSAGE_SYSTEM);
 		} catch (Exception e) {
