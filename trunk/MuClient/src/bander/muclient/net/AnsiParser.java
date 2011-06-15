@@ -142,16 +142,20 @@ public class AnsiParser {
 			}
 			char command = mMatcher.command();
 			if (command == 'm') {
-				for (int i = 0; i < mMatcher.paramCount(); i++) {
-					int param = mMatcher.param(i);
-					if ((param == 0) || (param == 1)) {
-						mIntensity = param;
-					} else
-					if ((param > 29) && (param < 38)) {
-						mForegroundColorSpan = new ForegroundColorSpan(getColor(param));
-					} else 
-					if ((param > 39) && (param < 48)) {
-						mBackgroundColorSpan = new BackgroundColorSpan(getColor(param));
+				if (mMatcher.paramCount() == 0) {
+					mIntensity = 0;
+				} else {
+					for (int i = 0; i < mMatcher.paramCount(); i++) {
+						int param = mMatcher.param(i);
+						if ((param == 0) || (param == 1)) {
+							mIntensity = param;
+						} else
+						if ((param > 29) && (param < 38)) {
+							mForegroundColorSpan = new ForegroundColorSpan(getColor(param));
+						} else 
+						if ((param > 39) && (param < 48)) {
+							mBackgroundColorSpan = new BackgroundColorSpan(getColor(param));
+						}
 					}
 				}
 			}
@@ -170,28 +174,15 @@ public class AnsiParser {
 	
 	private int getColor(int parameter) {
 		// http://en.wikipedia.org/wiki/ANSI_escape_code - xterm colors.
-		if (mIntensity == 0){
-			switch (parameter % 10) {
-				case 0: return Color.BLACK;
-				case 1: return 0xffcc0000;
-				case 2: return 0xff00cc00;
-				case 3: return 0xffcccc00;
-				case 4: return 0xff0000ee;
-				case 5: return 0xffcc00cc;
-				case 6: return 0xff00cccc;
-				case 7: return Color.GRAY;
-			}
-		} else {
-			switch (parameter % 10) {
-				case 0: return Color.BLACK;
-				case 1: return Color.RED;
-				case 2: return Color.GREEN;
-				case 3: return Color.YELLOW;
-				case 4: return 0xff5555ff;
-				case 5: return Color.MAGENTA;
-				case 6: return Color.CYAN;
-				case 7: return Color.WHITE;
-			}
+		switch (parameter % 10) {
+			case 0: return (mIntensity == 0) ? 0xff000000 : 0xff808080;
+			case 1: return (mIntensity == 0) ? 0xffcc0000 : 0xffff0000;
+			case 2: return (mIntensity == 0) ? 0xff00cc00 : 0xff00ff00;
+			case 3: return (mIntensity == 0) ? 0xffcccc00 : 0xffffff00;
+			case 4: return (mIntensity == 0) ? 0xff0000ee : 0xff5555ff; // blue is odd.
+			case 5: return (mIntensity == 0) ? 0xffcc00cc : 0xffff00ff;
+			case 6: return (mIntensity == 0) ? 0xff00cccc : 0xff00ffff;
+			case 7: return (mIntensity == 0) ? 0xffcccccc : 0xffffffff;
 		}
 		return Color.CYAN;
 	}
