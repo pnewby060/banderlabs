@@ -36,6 +36,7 @@ import android.widget.TextView;
 import bander.muclient.Main;
 import bander.muclient.R;
 import bander.muclient.net.AnsiParser;
+import bander.muclient.net.TelnetParser;
 import bander.muclient.net.TextConnection;
 import bander.muclient.view.SizingScrollView;
 import bander.muclient.view.SizingScrollView.OnSizeListener;
@@ -67,6 +68,7 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 	private boolean mLinkify = true;
 	private String[] mShortcuts;
 	
+	private TelnetParser mTelnetParser = new TelnetParser();
 	private AnsiParser mAnsiParser = new AnsiParser();
 	
 	@Override
@@ -314,13 +316,14 @@ public class HostSession extends Activity implements OnClickListener, OnSizeList
 			case TextConnection.MESSAGE_LINE:
 				String text = (String) msg.obj;
 				
-				Spannable result = mAnsiParser.addColors(text);
+				CharSequence parsed1 = mTelnetParser.parse(text);
+				Spannable parsed2 = mAnsiParser.parse(parsed1);
 				
 				if (mLinkify) {
-					Linkify.addLinks(result, Linkify.WEB_URLS);
+					Linkify.addLinks(parsed2, Linkify.WEB_URLS);
 				}
 				
-				appendOutput(result);
+				appendOutput(parsed2);
 				break;
 		}
 		return true;

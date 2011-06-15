@@ -30,7 +30,8 @@ public class AnsiParser {
 		private char mCommand		= ' ';
 		private String mParam		= "";
 		
-		private int[] mParams		= new int[3];
+		private static final int PARAM_COUNT	= 5;
+		private int[] mParams		= new int[PARAM_COUNT];
 		private int mParamIndex		= -1;
 		
 		/** Returns the input text. */
@@ -79,8 +80,12 @@ public class AnsiParser {
 							mPos++;
 						} else { 
 							mParamIndex++;
-							if (mParamIndex < 3) {
-								mParams[mParamIndex] = Integer.parseInt(mParam);
+							if (mParamIndex < PARAM_COUNT) {
+								try {
+									mParams[mParamIndex] = Integer.parseInt(mParam);
+								} catch (NumberFormatException e) {
+									mParams[mParamIndex] = -1;
+								}
 							}
 							mParam = ""; 
 							
@@ -117,14 +122,15 @@ public class AnsiParser {
 	 * @param text The text to be scanned for color codes.
 	 * @return Spannable containing the input text with added color codes.
 	 */
-	public Spannable addColors(String text) {
+	public Spannable parse(CharSequence sequence) {
 		SpannableStringBuilder builder = new SpannableStringBuilder();
 		
 		if (mMatcher.foundPartial()) {
 			String partial = new String(mMatcher.text().substring(mMatcher.start()));
-			text = partial + text;
+			sequence = partial + sequence;
 		}
 		
+		String text = sequence.toString();
 		mMatcher.match(text);
 		int pos = 0;
 		while (mMatcher.find()) {
