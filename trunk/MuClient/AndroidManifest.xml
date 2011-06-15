@@ -63,7 +63,12 @@
 			</intent-filter>
 		</activity>
 		
-		<activity android:name=".activity.Preferences"></activity>
+		<activity android:name=".activity.Preferences">
+			<intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.PREFERENCE" />
+			</intent-filter>
+		</activity>
 		<activity android:name=".activity.PrefFont"></activity>
 		
 	</application>
