@@ -32,6 +32,12 @@
 		android:summaryOn="@string/pref_deleteConfirmationSummaryOn"
 		android:defaultValue="true"
 	/>
+	<CheckBoxPreference android:key="rememberPosition"
+		android:title="@string/pref_rememberPosition"
+		android:summaryOff="@string/pref_rememberPositionSummaryOff" 
+		android:summaryOn="@string/pref_rememberPositionSummaryOn"
+		android:defaultValue="true"
+	/>
  	<PreferenceCategory android:title="@string/pref_notes">			
 		<PreferenceScreen
 			android:title="@string/pref_export"

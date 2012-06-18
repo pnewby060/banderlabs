@@ -21,7 +21,7 @@ import android.text.TextUtils;
 public class NoteProvider extends ContentProvider {
 	private static final String DATABASE_NAME = "notepad.db";
 	private static final String DATABASE_TABLE = "notes";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 
 	private static final int SEARCH 	= 1;
 	private static final int NOTES 		= 2;
@@ -43,6 +43,8 @@ public class NoteProvider extends ContentProvider {
 		sNotesProjectionMap.put(Note.TITLE, Note.TITLE);
 		sNotesProjectionMap.put(Note.BODY, Note.BODY);
 		sNotesProjectionMap.put(Note.CREATED, Note.CREATED);
+		sNotesProjectionMap.put(Note.CURSOR, Note.CURSOR);
+		sNotesProjectionMap.put(Note.SCROLL_Y, Note.SCROLL_Y);
 	}
 	private static HashMap<String, String> sSuggestionProjectionMap;
 	static {
@@ -69,15 +71,23 @@ public class NoteProvider extends ContentProvider {
 				+ Note._ID + " INTEGER PRIMARY KEY," 
 				+ Note.TITLE + " TEXT,"
 				+ Note.BODY + " TEXT," 
-				+ Note.CREATED + " INTEGER" 
+				+ Note.CREATED + " INTEGER,"
+				+ Note.CURSOR + " INTEGER,"			// v6 
+				+ Note.SCROLL_Y + " INTEGER"		// v6 
 				+ ");"
 			);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
-			onCreate(db);
+			if ((oldVersion == 5) && (newVersion == 6)) {
+				db.execSQL("ALTER TABLE " + DATABASE_TABLE + " " 
+					+ "ADD COLUMN " + Note.CURSOR + ";"
+				);
+				db.execSQL("ALTER TABLE " + DATABASE_TABLE + " " 
+					+ "ADD COLUMN " + Note.SCROLL_Y + ";"
+				);
+			}
 		}
 	}
 
@@ -176,7 +186,14 @@ public class NoteProvider extends ContentProvider {
 			Long now = Long.valueOf(System.currentTimeMillis());
 			values.put(Note.CREATED, now);
 		}
-
+		
+		if (values.containsKey(Note.CURSOR) == false) {
+			values.put(Note.CURSOR, 0L);
+		}
+		if (values.containsKey(Note.SCROLL_Y) == false) {
+			values.put(Note.SCROLL_Y, 0L);
+		}
+		
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, Note.BODY, values);
 		if (rowId > 0) {
