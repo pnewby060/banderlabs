@@ -31,21 +31,31 @@ public class Note implements BaseColumns, Parcelable {
 		Note.DEFAULT_SORT_ORDER, Note.TITLE, Note.CREATED
 	};
 
-	/** The title of the note. <P>Type: TEXT</P> */
+	/** The title of the note. Type: TEXT. */
 	public static final String TITLE = "title";
 
-	/** The body of the note. <P>Type: TEXT</P> */
+	/** The body of the note. Type: TEXT. */
 	public static final String BODY = "body";
 
-	/** The creation date of the note. <P>Type: INTEGER</P> */
+	/** The creation date of the note. Type: INTEGER. */
 	public static final String CREATED = "created";
+	
+	/** The saved cursor position. Type: INTEGER. */
+	public static final String CURSOR = "cursor_position";
+	
+	/** The saved scroll position. Type: INTEGER. */
+	public static final String SCROLL_Y = "scroll_position";
 
 	private long mId;
 	private String mTitle;
 	private String mBody;
+	private int mCursor;
+	private int mScrollY;
 
 	public String getTitle() 	{ return mTitle; }
 	public String getBody() 	{ return mBody; }
+	public int getCursor() 		{ return mCursor; }
+	public int getScrollY() 	{ return mScrollY; }
 
 	public Uri getUri()			{ return ContentUris.withAppendedId(CONTENT_URI, mId); }
 	
@@ -54,17 +64,22 @@ public class Note implements BaseColumns, Parcelable {
 		mId = -1;
 	}
 
-	/** Copy constructor */
+	/** Copy constructor. */
 	public Note(Note note) {
 		mId = note.mId;
 		mTitle = note.mTitle;
 		mBody = note.mBody;
+		mCursor = note.mCursor;
+		mScrollY = note.mScrollY;
 	}
 
+	/** Parcel constructor. */
 	private Note(Parcel in) {
 		mId = in.readLong();
 		mTitle = in.readString();
 		mBody = in.readString();
+		mCursor = in.readInt();
+		mScrollY = in.readInt();
 	}
 
 	/** Returns a <code>ContentValues</code> object representing this note.
@@ -76,6 +91,8 @@ public class Note implements BaseColumns, Parcelable {
 		values.put(_ID, mId);
 		values.put(TITLE, mTitle);
 		values.put(BODY, mBody);
+		values.put(CURSOR, mCursor);
+		values.put(SCROLL_Y, mScrollY);
 
 		return values;
 	}
@@ -92,6 +109,8 @@ public class Note implements BaseColumns, Parcelable {
 				note.mId = cursor.getLong(cursor.getColumnIndexOrThrow(_ID));
 				note.mTitle = cursor.getString(cursor.getColumnIndexOrThrow(TITLE));
 				note.mBody = cursor.getString(cursor.getColumnIndexOrThrow(BODY));
+				note.mCursor = cursor.getInt(cursor.getColumnIndexOrThrow(CURSOR));
+				note.mScrollY = cursor.getInt(cursor.getColumnIndexOrThrow(SCROLL_Y));
 			}
 		}
 
@@ -108,8 +127,11 @@ public class Note implements BaseColumns, Parcelable {
 		dest.writeLong(mId);
 		dest.writeString(mTitle);
 		dest.writeString(mBody);
+		dest.writeInt(mCursor);
+		dest.writeInt(mScrollY);
 	}
 
+	// Parcelable
 	public static final Creator<Note> CREATOR = new Creator<Note>() {
 		public Note createFromParcel(Parcel in) {
 			return new Note(in);

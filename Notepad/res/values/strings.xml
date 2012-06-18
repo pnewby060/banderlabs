@@ -15,7 +15,6 @@
 	<string name="menu_delete">Delete Note</string>
 	
 	<string name="menu_revert">Revert</string>
-	<string name="menu_discard">Discard</string>
 	<string name="menu_send">Send Note</string>
 	
 	<string name="dialog_delete">Delete Note</string>
@@ -38,7 +37,7 @@
 	<string name="dialog_export">Export Notes</string>
 	<string name="export_confirmation">Are you sure you want to export your notes to the SD card? This will overwrite any existing files.</string>
 	
-	<string name="export_progress">Exporting notes...</string>
+	<string name="export_progress">Exporting notes…</string>
 	<plurals name="export_done">
 		<item quantity="one">Exported %1$d note to \'%2$s\'.</item>
 		<item quantity="other">Exported %1$d notes to \'%2$s\'.</item>
@@ -48,7 +47,7 @@
 	<string name="dialog_import">Import Notes</string>
 	<string name="import_confirmation">Are you sure you want to import notes from your SD card? This will overwrite any existing notes.</string>
 
-	<string name="import_progress">Importing notes...</string>
+	<string name="import_progress">Importing notes…</string>
 	<plurals name="import_done">
 		<item quantity="one">Imported %1$d note from \'%2$s\'.</item>
 		<item quantity="other">Imported %1$d notes from \'%2$s\'.</item>
@@ -69,6 +68,9 @@
 	<string name="pref_deleteConfirmation">Confirm Deletes</string>
 	<string name="pref_deleteConfirmationSummaryOn">Confirm when deleting a note</string>
 	<string name="pref_deleteConfirmationSummaryOff">Do not confirm when deleting a note</string>
+	<string name="pref_rememberPosition">Remember Position</string>
+	<string name="pref_rememberPositionSummaryOn">Remembering and restoring cursor and scrollbar position in notes</string>
+	<string name="pref_rememberPositionSummaryOff">Not remembering cursor and scrollbar position in notes</string>
 	<string name="pref_notes">Notes</string>
 	<string name="pref_export">Export</string>
 	<string name="pref_exportSummary">Export your notes to the SD card</string>

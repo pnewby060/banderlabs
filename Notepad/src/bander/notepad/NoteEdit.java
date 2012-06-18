@@ -29,7 +29,7 @@ public class NoteEdit extends Activity {
 	private static final int STATE_INSERT 	= 1;
 
 	private static final String[] PROJECTION = new String[] { 
-		Note._ID, Note.TITLE, Note.BODY
+		Note._ID, Note.TITLE, Note.BODY, Note.CURSOR, Note.SCROLL_Y
 	};
 
 	private static final String ORIGINAL_NOTE = "originalNote";
@@ -110,6 +110,12 @@ public class NoteEdit extends Activity {
 		if (note != null) {
 			if (mOriginalNote == null) mOriginalNote = note;
 			mBodyText.setTextKeepState(note.getBody());
+			
+			Boolean rememberPosition = preferences.getBoolean("rememberPosition", true);
+			if (rememberPosition == true) {
+				mBodyText.setSelection(note.getCursor());
+				mBodyText.scrollTo(0, note.getScrollY());
+			}
 		}
 	}
 
@@ -142,6 +148,8 @@ public class NoteEdit extends Activity {
 					values.put(Note.TITLE, title);
 				}
 				values.put(Note.BODY, bodyText);
+				values.put(Note.CURSOR, mBodyText.getSelectionStart());
+				values.put(Note.SCROLL_Y, mBodyText.getScrollY());
 
 				getContentResolver().update(mUri, values, null, null);
 			}
